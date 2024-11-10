@@ -10,5 +10,6 @@ namespace LMS.Domain.Models.Requests
     {
         public List<int>? BookId { get; set; }
         public int UserId { get; set; }
+
     }
 }

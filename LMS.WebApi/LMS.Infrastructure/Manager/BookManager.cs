@@ -48,10 +48,10 @@ namespace LMS.Infrastructure.Manager
                 {
                     Bookid = item,
                     Userid = request.UserId,
-                    Borrowdate = DateOnly.FromDateTime(DateTime.Now),
-                    Borrowexpired = DateOnly.FromDateTime(DateTime.Now.AddDays(_libraryOptions.MaxBookLoanDuration)),
+                    Borrowdate = DateOnly.FromDateTime(request.BorrowDate),
+                    Borrowexpired = DateOnly.FromDateTime(request.BorrowDate.AddDays(_libraryOptions.MaxBookLoanDuration)),
                     Isreturned = false,
-                    Returndate = DateOnly.FromDateTime(DateTime.Now.AddDays(_libraryOptions.MaxBookLoanDuration))
+                    Returndate = null
                 });
             }
 

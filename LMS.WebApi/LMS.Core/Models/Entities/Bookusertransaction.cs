@@ -29,7 +29,7 @@ public partial class Bookusertransaction
     public bool? Isreturned { get; set; }
 
     [Column("returndate")]
-    public DateOnly Returndate { get; set; }
+    public DateOnly? Returndate { get; set; }
 
     [ForeignKey("Bookid")]
     public virtual Book Book { get; set; } = null!;
