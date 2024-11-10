@@ -1,26 +1,29 @@
 using LMS.Core.Models;
 using LMS.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure library options and infrastructure
 var libraryConfig = builder.Configuration.GetSection(LibraryOptions.SettingName);
 builder.Services.Configure<LibraryOptions>(libraryConfig);
-
 builder.Services.ConfigureInfrastructure(builder.Configuration);
 
-// Add services to the container.
+// Add services to the container
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-var serviceScope = app.Services.CreateScope();
-var dataContext = serviceScope.ServiceProvider.GetService<LMSDbContext>();
-dataContext?.Database.EnsureCreated();
+// Apply migrations automatically (if using for development)
+using (var serviceScope = app.Services.CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<LMSDbContext>();
+    context.Database.Migrate(); // Apply any pending migrations
+}
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -28,9 +31,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
