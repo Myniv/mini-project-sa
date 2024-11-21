@@ -41,7 +41,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
         public async Task<IActionResult> Post([FromBody] AddBookRequest request)
         {
             var response = await _bookService.AddNewBook(request);
-            if(response == null)
+            if (response == null)
             {
                 return BadRequest();
             }
@@ -50,7 +50,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
 
         // PUT api/<BooksController>/5
         [HttpPut("{bookId}")]
-        public async Task<IActionResult> Put([FromRoute]int bookId, [FromBody]UpdateBookRequest request)
+        public async Task<IActionResult> Put([FromRoute] int bookId, [FromBody] UpdateBookRequest request)
         {
             var response = await _bookService.UpdateBook(bookId, request);
             if (response == null)
@@ -62,7 +62,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
 
         // DELETE api/<BooksController>/5
         [HttpDelete("{bookId}")]
-        public async Task<IActionResult> Delete([FromRoute]int bookId, [FromBody]DeleteBookRequest request)
+        public async Task<IActionResult> Delete([FromRoute] int bookId, [FromBody] DeleteBookRequest request)
         {
             var response = await _bookService.DeleteBook(bookId, request);
             if (response == null)
@@ -73,7 +73,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
         }
 
         [HttpPost("search")]
-        public async Task<IActionResult> SearchBooksPaged([FromQuery] SearchBookQuery query, [FromBody]PageRequest pageRequest)
+        public async Task<IActionResult> SearchBooksPaged([FromQuery] SearchBookQuery query, [FromBody] PageRequest pageRequest)
         {
             var response = await _bookService.GetAllBookSearchPaged(query, pageRequest);
             if (response == null)
@@ -82,5 +82,19 @@ namespace LibraryManagementSystem.WebApi.Controllers
             }
             return Ok(response);
         }
+
+        // [HttpPost("search")]
+        // public async Task<IActionResult> SearchBooksPaged([FromQuery] SearchBookQuery query)
+        // {
+        //     var response = await _bookService.GetAllBookSearchPaged(query);
+        //     if (response == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     return Ok(response);
+        // }
+
+
+
     }
 }

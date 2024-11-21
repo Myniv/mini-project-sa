@@ -10,7 +10,7 @@ namespace LMS.Infrastructure
 {
     public partial class CompanyDbContext : DbContext
     {
-        public CompanyDbContext(DbContextOptions options) : base(options) { }
+        public CompanyDbContext(DbContextOptions<CompanyDbContext> options) : base(options) { }
 
         public virtual DbSet<Departement> Departements { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }

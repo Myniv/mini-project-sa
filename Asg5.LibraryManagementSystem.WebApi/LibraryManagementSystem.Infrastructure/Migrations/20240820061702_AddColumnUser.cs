@@ -26,6 +26,14 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                 maxLength: 255,
                 nullable: false,
                 defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+name: "Notes",
+table: "Users",
+type: "character varying(255)",
+                maxLength: 255,
+nullable: false,
+defaultValue: "");
         }
 
         /// <inheritdoc />

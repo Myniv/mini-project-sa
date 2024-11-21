@@ -31,6 +31,7 @@ namespace LibraryManagementSystem.Application.Service
                 UserPrivilage = request.UserPrivilage,
                 LibraryCardExpiredDate = DateOnly.MaxValue,
                 LibraryCardNumber = "",
+                UserNotes = request.UserNotes,
             };
             var user = await _userRepository.Add(newUser);
             if(user.UserPosition != "Library User")

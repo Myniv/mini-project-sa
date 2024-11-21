@@ -25,6 +25,11 @@ namespace CompanyWeb.Domain.Models.Responses.Employee
         public int Salary { get; set; }
         public bool IsActive { get; set; }
         public int? Deptno { get; set; }
+        public string? EmpType { get; set; }
+        public int? EmpLevel { get; set; }
+
+        //NEW======>
+        public int? DirectSupervisor { get; set; }
         public DateTime? UpdateAt { get; set; }
         public DateTime? CreatedAt { get; set; }
         public List<EmployeeDependent>? EmpDependents { get; set; }

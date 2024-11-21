@@ -38,6 +38,29 @@ namespace CompanyWeb.WebApi.Controllers
             return Ok(await _departementService.GetDepartements(pageNumber, perPage));
         }
 
+        // NEW ======>
+        /// <summary>
+        /// Get all departements
+        /// </summary>
+
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /Departements/all
+        ///     
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns> return departement list </returns>
+        // GET: api/Departements/all
+        [HttpGet("all")]
+        [ProducesResponseType(typeof(Departement), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Departement), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(Departement), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetAllDepartements()
+        {
+            return Ok(await _departementService.GetAllDepartements());
+        }
+
         /// <summary>
         /// Get departement by ID
         /// </summary>
@@ -91,9 +114,15 @@ namespace CompanyWeb.WebApi.Controllers
         public async Task<ActionResult<Departement>> PostDepartement([FromBody] AddDepartementRequest request)
         {
             var action = await _departementService.CreateDepartement(request);
-            if (action == null)
+
+            if (action.ToString() == "ERROR NAME EXIST")
             {
-                return NotFound();
+                //NEW======>
+                return BadRequest(new
+                {
+                    Status = "Error",
+                    Message = "Department name exist!"
+                });
             }
             return Ok(action);
         }
@@ -129,9 +158,23 @@ namespace CompanyWeb.WebApi.Controllers
                 return BadRequest();
             }
             var action = await _departementService.UpdateDepartement(id, request);
-            if (action == null)
+
+            //NEW======>
+            if (action.ToString() == "ERROR NAME EXIST")
             {
-                return NotFound();
+                return BadRequest(new
+                {
+                    Status = "Error",
+                    Message = "Department name exist!"
+                });
+            }
+            if (action.ToString() == "ERROR NOT FOUND")
+            {
+                return NotFound(new
+                {
+                    Status = "Error",
+                    Message = "Department not found!"
+                });
             }
             return Ok(action);
         }

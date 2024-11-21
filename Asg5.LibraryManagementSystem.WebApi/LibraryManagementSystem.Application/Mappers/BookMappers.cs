@@ -26,7 +26,7 @@ namespace LibraryManagementSystem.Application.Mappers
                 DeleteReason = bookModel.DeleteReason,
                 IsDeleted = bookModel.IsDeleted,
                 Price = bookModel.Price,
-                Stock = bookModel.Stock
+                // Stock = bookModel.Stock
             };
         }
 
@@ -34,11 +34,15 @@ namespace LibraryManagementSystem.Application.Mappers
         {
             return new BookSearchResponse()
             {
+                Author = bookModel.Author,
+                BookId = bookModel.BookId,
                 Category = bookModel.Category,
                 Description = bookModel.Description,
-                Isbn =bookModel.Isbn,
+                Isbn = bookModel.Isbn,
                 Publisher = bookModel.Publisher,
                 Title = bookModel.Title,
+                Price = bookModel.Price,
+                Language = bookModel.Language,
                 Locations = locations,
             };
 

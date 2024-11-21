@@ -13,6 +13,7 @@ namespace CompanyWeb.Application.Mappers
     {
         public static EmployeeResponse ToEmployeeResponse(this Employee model, List<EmployeeDependent> employeeDependents)
         {
+            //NEW======>
             return new EmployeeResponse()
             {
                 Empno = model.Empno,
@@ -22,6 +23,7 @@ namespace CompanyWeb.Application.Mappers
                 EmailAddress = model.EmailAddress,
                 PhoneNumber = model.PhoneNumber,
                 DeactivateReason = model.DeactivateReason,
+                DirectSupervisor = model.DirectSupervisor,
                 Dob = model.Dob,
                 Sex = model.Sex,
                 IsActive = model.IsActive,
@@ -29,6 +31,8 @@ namespace CompanyWeb.Application.Mappers
                 Deptno = model.Deptno,
                 Ssn = model.Ssn,
                 Salary = model.Salary,
+                EmpType = model.EmpType,
+                EmpLevel = model.EmpLevel,
                 UpdateAt = model.UpdatedAt,
                 CreatedAt = model.CreatedAt,
                 EmpDependents = employeeDependents,
@@ -50,11 +54,22 @@ namespace CompanyWeb.Application.Mappers
 
         public static EmployeeDetailResponse ToEmployeeDetailResponse(this Employee model, List<EmployeeDependent> employeeDependents)
         {
+            //NEW======>
             return new EmployeeDetailResponse()
             {
-                Name = model.Fname + " " + model.Lname,
+                Empno = model.Empno,
+                Deptno = model.Deptno,
+                DeactivateReason = model.DeactivateReason,
+                Dob = model.Dob,
+                Sex = model.Sex,
+                IsActive = model.IsActive,
+                Ssn = model.Ssn,
+                Salary = model.Salary,
+                Fname = model.Fname,
+                Lname = model.Lname,
                 Position = model.Position,
                 EmpType = model.EmpType,
+                EmpLevel = model.EmpLevel,
                 Address = model.Address,
                 EmailAddress = model.EmailAddress,
                 PhoneNumber = model.PhoneNumber,

@@ -16,6 +16,7 @@ namespace LibraryManagementSystem.Domain.Models.Requests.Books
         public string Author { get; set; } = null!;
         public string Isbn { get; set; } = null!;
         public string Description { get; set; } = null!;
+        public string Language { get; set; } = null!;
         public int Price { get; set; }
     }
 }
