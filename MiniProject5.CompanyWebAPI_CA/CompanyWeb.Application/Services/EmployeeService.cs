@@ -19,7 +19,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CompanyWeb.Application.Services
 {
-    public class EmployeeService :  IEmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private readonly ICompanyService _companyService;
         private readonly IDepartementRepository _departementRepository;
@@ -27,10 +27,10 @@ namespace CompanyWeb.Application.Services
         private readonly IEmployeeDependentRepository _employeeDependentRepository;
         private readonly CompanyOptions _companyOptions;
 
-        public EmployeeService(ICompanyService companyService, 
-            IDepartementRepository departementRepository, 
-            IEmployeeRepository employeeRepository, 
-            IEmployeeDependentRepository employeeDependentRepository, 
+        public EmployeeService(ICompanyService companyService,
+            IDepartementRepository departementRepository,
+            IEmployeeRepository employeeRepository,
+            IEmployeeDependentRepository employeeDependentRepository,
             IOptions<CompanyOptions> companyOptions)
         {
             _companyService = companyService;
@@ -65,7 +65,7 @@ namespace CompanyWeb.Application.Services
                 UpdatedAt = null,
             };
             int deptId = await _departementRepository.GetDepartementIdByName("IT");
-            if(request.Deptno == deptId)
+            if (request.Deptno == deptId)
             {
                 int memberCount = _companyService.GetEmployeeIT().Result.Count;
                 if (memberCount >= _companyOptions.MaxDepartementMemberIT)
@@ -74,7 +74,7 @@ namespace CompanyWeb.Application.Services
                     return response;
                 }
             }
-            
+
             var data = await _employeeRepository.Create(newEmp);
 
             foreach (var item in request.EmpDependents)
@@ -102,11 +102,11 @@ namespace CompanyWeb.Application.Services
         public async Task<object> DeactivateEmployee(int id, DeactivateEmployeeRequest request)
         {
             var emp = await _employeeRepository.GetEmployee(id);
-            if(emp == null || emp.IsActive == false)
+            if (emp == null || emp.IsActive == false)
             {
                 return null;
             }
-            if(emp.IsActive == true)
+            if (emp.IsActive == true)
             {
                 emp.IsActive = false;
                 emp.UpdatedAt = DateTime.UtcNow;
@@ -148,13 +148,13 @@ namespace CompanyWeb.Application.Services
         {
             var employees = await _employeeRepository.GetAllEmployees();
             return employees.Select(s => s.ToEmployeeResponse(null)).ToList<object>();
-                
+
         }
 
         public async Task<List<EmployeeSearchResponse>> SearchEmployee(SearchEmployeeQuery query, PageRequest pageRequest)
         {
             var employees = await _employeeRepository.GetAllEmployees();
-            
+
             bool isKeyWord = !string.IsNullOrWhiteSpace(query.KeyWord);
             bool isSearchBy = !string.IsNullOrWhiteSpace(query.SearchBy);
             bool isSort = !string.IsNullOrWhiteSpace(query.SortBy);
@@ -162,7 +162,7 @@ namespace CompanyWeb.Application.Services
             Console.WriteLine(query.KeyWord);
             if (isKeyWord && isSearchBy)
             {
-                if(query.SearchBy.Equals("name", StringComparison.OrdinalIgnoreCase))
+                if (query.SearchBy.Equals("name", StringComparison.OrdinalIgnoreCase))
                 {
                     employees = employees
                    .Where(x => x.Fname.ToLower().Contains(query.KeyWord.ToLower())
@@ -210,6 +210,98 @@ namespace CompanyWeb.Application.Services
                 .Select(s => s.ToEmployeeSearchResponse(s.DeptnoNavigation.Deptname))
                 .ToListAsync();
         }
+        //Search Employee 2
+        public async Task<object> SearchEmployee2(SearchEmployeeQuery2 query, PageRequest pageRequest)
+        {
+            var employees = await _employeeRepository.GetAllEmployees();
+
+            var temp = employees.AsQueryable();
+
+            //Search
+            if (!string.IsNullOrEmpty(query.KeyWord))
+            {
+                temp = temp.Where(b => b.Fname.ToLower().Contains(query.KeyWord.ToLower()) ||
+                b.Lname.ToLower().Contains(query.KeyWord.ToLower()) ||
+                b.DeptnoNavigation.Deptname.ToLower().Contains(query.KeyWord.ToLower()) ||
+                b.Position.ToLower().Contains(query.KeyWord.ToLower()) ||
+                b.EmpType.ToLower().Contains(query.KeyWord.ToLower()) ||
+                b.EmpLevel.ToString().ToLower().Contains(query.KeyWord));
+            }
+
+            if (!string.IsNullOrEmpty(query.Fname))
+            {
+                temp = temp.Where(b => b.Fname.ToLower().Contains(query.Fname.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(query.Lname))
+            {
+                temp = temp.Where(b => b.Lname.ToLower().Contains(query.Lname.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(query.Position))
+            {
+                temp = temp.Where(b => b.Position.ToLower().Contains(query.Position.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(query.EmpType))
+            {
+                temp = temp.Where(b => b.EmpType.ToLower().Contains(query.EmpType.ToLower()));
+            }
+
+
+            //Sort
+            if (!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                switch (query.SortBy)
+                {
+
+                    case "department":
+                        temp = query.SortOrder.Equals("asc") ? temp.OrderBy(s => s.DeptnoNavigation.Deptname) : temp.OrderByDescending(s => s.DeptnoNavigation.Deptname);
+                        break;
+                    case "position":
+                        temp = query.SortOrder.Equals("asc") ? temp.OrderBy(s => s.Position) : temp.OrderByDescending(s => s.Position);
+                        break;
+                    case "type":
+                        temp = query.SortOrder.Equals("asc") ? temp.OrderBy(s => s.EmpType) : temp.OrderByDescending(s => s.EmpType);
+                        break;
+                    case "level":
+                        temp = query.SortOrder.Equals("asc") ? temp.OrderBy(s => s.EmpLevel) : temp.OrderByDescending(s => s.EmpLevel);
+                        break;
+                    default:
+                        temp = query.SortOrder.Equals("asc") ? temp.OrderBy(s => s.Fname) : temp.OrderByDescending(s => s.Fname);
+                        break;
+                }
+            }
+
+            if (query.isActive == false)
+            {
+                temp = temp.Where(w => w.IsActive == false);
+            }
+            else
+            {
+                temp = temp.Where(w => w.IsActive == true);
+            }
+
+            var total = temp.Count();
+
+            var data = temp
+                .Skip((pageRequest.PageNumber - 1) * pageRequest.PerPage)
+                .Take(pageRequest.PerPage)
+                .Select(s => s.ToEmployeeSearchResponse(s.DeptnoNavigation.Deptname))
+                .ToListAsync();
+
+            return new
+            {
+                Total = total,
+                Data = data
+            };
+        }
+
+        // public async Task<object> SearchEmployee2(SearchEmployeeQuery2 query, PageRequest pageRequest)
+        // {
+        //     var employees = await _employeeRepository.GetAllEmployees();
+
+        //     var temp = employees.AsQueryable();
+
+
+        // }
 
         public async Task<object> UpdateEmployee(int id, UpdateEmployeeRequest request)
         {
@@ -252,7 +344,7 @@ namespace CompanyWeb.Application.Services
             }
 
             var dependents = await _employeeDependentRepository.GetAllEmployeeDependents();
-            return response.ToEmployeeResponse(dependents.Where(w=>w.DependentEmpno == id).ToList());
+            return response.ToEmployeeResponse(dependents.Where(w => w.DependentEmpno == id).ToList());
         }
 
         MSEmployeeDetailResponse CreateResponse()
@@ -267,34 +359,34 @@ namespace CompanyWeb.Application.Services
 
         private IQueryable<Employee> SortEmployeeByField(IQueryable<Employee> employees, string field, bool isDescending)
         {
-            if(field.Equals("name", StringComparison.OrdinalIgnoreCase))
+            if (field.Equals("name", StringComparison.OrdinalIgnoreCase))
             {
-                employees =  isDescending ? employees.OrderByDescending(x=>x.Fname): employees.OrderBy(x=>x.Fname);
+                employees = isDescending ? employees.OrderByDescending(x => x.Fname) : employees.OrderBy(x => x.Fname);
             }
             if (field.Equals("departement", StringComparison.OrdinalIgnoreCase))
             {
                 employees = isDescending ? employees.OrderByDescending(x => x.DeptnoNavigation.Deptname) : employees.OrderBy(x => x.DeptnoNavigation.Deptname);
-           
+
             }
             if (field.Equals("position", StringComparison.OrdinalIgnoreCase))
             {
                 employees = isDescending ? employees.OrderByDescending(x => x.Position) : employees.OrderBy(x => x.Position);
-             
+
             }
             if (field.Equals("level", StringComparison.OrdinalIgnoreCase))
             {
                 employees = isDescending ? employees.OrderByDescending(x => x.EmpLevel) : employees.OrderBy(x => x.EmpLevel);
-               
+
             }
             if (field.Equals("type", StringComparison.OrdinalIgnoreCase))
             {
                 employees = isDescending ? employees.OrderByDescending(x => x.EmpType) : employees.OrderBy(x => x.EmpType);
-              
+
             }
             if (field.Equals("updateDate", StringComparison.OrdinalIgnoreCase))
             {
                 employees = isDescending ? employees.OrderByDescending(x => x.UpdatedAt) : employees.OrderBy(x => x.UpdatedAt);
-              
+
             }
             return employees;
         }

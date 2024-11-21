@@ -26,6 +26,7 @@ namespace CompanyWeb.Domain.Services
 
         // Search & Filter
         Task<List<EmployeeSearchResponse>> SearchEmployee(SearchEmployeeQuery query, PageRequest pageRequest);
+        Task<object> SearchEmployee2(SearchEmployeeQuery2 query, PageRequest pageRequest);
 
         // Deactive Employee
         // - not yet timestamp
