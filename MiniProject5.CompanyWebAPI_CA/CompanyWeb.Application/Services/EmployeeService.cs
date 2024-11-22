@@ -159,7 +159,7 @@ namespace CompanyWeb.Application.Services
             bool isSearchBy = !string.IsNullOrWhiteSpace(query.SearchBy);
             bool isSort = !string.IsNullOrWhiteSpace(query.SortBy);
 
-            Console.WriteLine(query.KeyWord);
+            Console.WriteLine(query.KeyWord);       
             if (isKeyWord && isSearchBy)
             {
                 if (query.SearchBy.Equals("name", StringComparison.OrdinalIgnoreCase))

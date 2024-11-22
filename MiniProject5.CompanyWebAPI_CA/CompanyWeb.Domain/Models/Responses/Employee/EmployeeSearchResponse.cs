@@ -12,6 +12,8 @@ namespace CompanyWeb.Domain.Models.Responses.Employee
 {
     public class EmployeeSearchResponse
     {
+        public int Empno { get; set; }
+
         public string? Name { get; set; }
         public string? Departement { get; set; }
         public string? Position { get; set; }
