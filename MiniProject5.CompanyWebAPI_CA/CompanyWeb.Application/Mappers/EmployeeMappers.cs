@@ -49,6 +49,7 @@ namespace CompanyWeb.Application.Mappers
                 Position = model.Position,
                 EmpLevel = model.EmpLevel,
                 EmpType = model.EmpType,
+                IsActive = model.IsActive,
                 UpdateAt = model.UpdatedAt
             };
         }

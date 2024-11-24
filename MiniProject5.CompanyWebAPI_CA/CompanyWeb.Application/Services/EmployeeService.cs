@@ -313,6 +313,7 @@ namespace CompanyWeb.Application.Services
             e.Deptno = request.Deptno;
             e.Address = request.Address;
             e.Position = request.Position;
+            e.EmailAddress = request.EmailAddress;
             e.Dob = request.Dob;
             e.Fname = request.Fname;
             e.Lname = request.Lname;
