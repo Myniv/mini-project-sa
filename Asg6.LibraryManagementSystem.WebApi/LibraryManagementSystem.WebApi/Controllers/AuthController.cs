@@ -120,15 +120,18 @@ namespace LibraryManagementSystem.WebApi.Controllers
         [HttpPost("RefreshToken")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {
+            var refreshToken = Request.Cookies["RefreshToken"];
+
             // Validate the refresh token request.
-            if (request == null || string.IsNullOrWhiteSpace(request.RefreshToken))
-            {
-                return BadRequest("Refresh token is required.");  // Return bad request if no refresh token is provided.
-            }
+            //if (request == null || string.IsNullOrWhiteSpace(request.RefreshToken))
+            //{
+            //    return BadRequest("Refresh token is required.");  // Return bad request if no refresh token is provided.
+            //}
+
             try
             {
                 // Retrieve the username associated with the provided refresh token.
-                var username = await _tokenService.RetrieveUsernameByRefreshToken(request.RefreshToken);
+                var username = await _tokenService.RetrieveUsernameByRefreshToken(refreshToken);
                 if (string.IsNullOrEmpty(username))
                 {
                     return Unauthorized("Invalid refresh token.");  // Return unauthorized if no username is found (invalid or expired token).
