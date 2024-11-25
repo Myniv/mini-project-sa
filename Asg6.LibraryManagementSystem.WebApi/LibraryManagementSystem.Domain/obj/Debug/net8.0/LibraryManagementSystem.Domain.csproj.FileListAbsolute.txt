@@ -11,3 +11,16 @@ C:\Users\user\source\repos\NET-Solecode-Academy\Asg5.LibraryManagementSystem.Web
 C:\Users\user\source\repos\NET-Solecode-Academy\Asg5.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\refint\LibraryManagementSystem.Domain.dll
 C:\Users\user\source\repos\NET-Solecode-Academy\Asg5.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\LibraryManagementSystem.Domain.pdb
 C:\Users\user\source\repos\NET-Solecode-Academy\Asg5.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\ref\LibraryManagementSystem.Domain.dll
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\bin\Debug\net8.0\LibraryManagementSystem.Domain.deps.json
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\bin\Debug\net8.0\LibraryManagementSystem.Domain.dll
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\bin\Debug\net8.0\LibraryManagementSystem.Domain.pdb
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\LibraryManagementSystem.Domain.csproj.AssemblyReference.cache
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\LibraryManagementSystem.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\LibraryManagementSystem.Domain.AssemblyInfoInputs.cache
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\LibraryManagementSystem.Domain.AssemblyInfo.cs
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\LibraryManagementSystem.Domain.csproj.CoreCompileInputs.cache
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\LibraryManagementSystem.Domain.sourcelink.json
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\LibraryManagementSystem.Domain.dll
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\refint\LibraryManagementSystem.Domain.dll
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\LibraryManagementSystem.Domain.pdb
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.Domain\obj\Debug\net8.0\ref\LibraryManagementSystem.Domain.dll

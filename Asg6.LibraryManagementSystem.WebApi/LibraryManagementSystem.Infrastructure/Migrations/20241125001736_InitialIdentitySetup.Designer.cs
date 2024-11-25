@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LibraryManagementSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(LMSDbContext))]
-    [Migration("20240827080246_Migration2")]
-    partial class Migration2
+    [Migration("20241125001736_InitialIdentitySetup")]
+    partial class InitialIdentitySetup
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -299,6 +299,31 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                     b.HasKey("LocationId");
 
                     b.ToTable("locations");
+                });
+
+            modelBuilder.Entity("LibraryManagementSystem.Domain.Models.Entities.RefreshToken", b =>
+                {
+                    b.Property<int>("RefreshTokenId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RefreshTokenId"));
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("text");
+
+                    b.HasKey("RefreshTokenId");
+
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("LibraryManagementSystem.Domain.Models.Entities.Stock", b =>

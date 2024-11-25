@@ -10,7 +10,6 @@
         "dependencies": {
           "LibraryManagementSystem.Application": "1.0.0",
           "LibraryManagementSystem.Infrastructure": "1.0.0",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
           "Microsoft.EntityFrameworkCore.Proxies": "8.0.8",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.8",
           "Swashbuckle.AspNetCore": "6.4.0"
@@ -720,21 +719,28 @@
       "LibraryManagementSystem.Application/1.0.0": {
         "dependencies": {
           "LibraryManagementSystem.Domain": "1.0.0",
-          "Microsoft.EntityFrameworkCore": "8.0.8"
-        },
-        "runtime": {
-          "LibraryManagementSystem.Application.dll": {}
-        }
-      },
-      "LibraryManagementSystem.Domain/1.0.0": {
-        "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.8",
           "Microsoft.EntityFrameworkCore": "8.0.8",
           "Microsoft.Extensions.Identity.Core": "8.0.8"
         },
         "runtime": {
-          "LibraryManagementSystem.Domain.dll": {}
+          "LibraryManagementSystem.Application.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "LibraryManagementSystem.Domain/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.8",
+          "Microsoft.EntityFrameworkCore": "8.0.8"
+        },
+        "runtime": {
+          "LibraryManagementSystem.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "LibraryManagementSystem.Infrastructure/1.0.0": {
@@ -749,7 +755,10 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4"
         },
         "runtime": {
-          "LibraryManagementSystem.Infrastructure.dll": {}
+          "LibraryManagementSystem.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

@@ -4,7 +4,7 @@ using LibraryManagementSystem.Domain.Models.Entities;
 using LibraryManagementSystem.Domain.Repositories;
 using LibraryManagementSystem.Domain.Service;
 using LibraryManagementSystem.Infrastructure.Context;
-using LibraryManagementSystem.Infrastructure.Migrations;
+// using LibraryManagementSystem.Infrastructure.Migrations;
 using LibraryManagementSystem.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -49,7 +49,10 @@ namespace LibraryManagementSystem.Infrastructure
                 options.Password.RequiredLength = 8;
                 options.SignIn.RequireConfirmedEmail = true;
             })
-            .AddEntityFrameworkStores<LMSDbContext>();
+            .AddEntityFrameworkStores<LMSDbContext>()
+            .AddDefaultTokenProviders();
+
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme =
@@ -72,7 +75,7 @@ namespace LibraryManagementSystem.Infrastructure
                         System.Text.Encoding.UTF8.GetBytes(configuration["JWT:SigningKey"])
                     )
                 };
-            });  
+            });
         }
     }
 }
