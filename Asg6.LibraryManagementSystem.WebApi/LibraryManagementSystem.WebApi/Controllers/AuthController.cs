@@ -69,7 +69,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
                 HttpOnly = true,  // Hanya dapat diakses oleh server
                 Secure = true,    // Hanya dikirim melalui HTTPS
                 SameSite = SameSiteMode.Strict, // Cegah serangan CSRF
-                Expires = expires // Waktu kadaluarsa token
+                Expires = DateTime.Now.AddDays(3) // Waktu kadaluarsa token
             };
             Response.Cookies.Append(tokenType, token, cookieOptions);
         }
