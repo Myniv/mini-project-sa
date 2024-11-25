@@ -13,7 +13,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
         private readonly IAuthService _authService;
         private readonly ITokenService _tokenService;
         private readonly UserManager<AppUser> _userManager;
-        public AuthController(IAuthService authService, 
+        public AuthController(IAuthService authService,
             ITokenService tokenService,
             UserManager<AppUser> userManager)
         {
@@ -33,7 +33,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
             }
 
             var response = await _authService.Register(model);
-            if(response.Status == false)
+            if (response.Status == false)
             {
                 return BadRequest(response.Message);
             }
@@ -56,28 +56,61 @@ namespace LibraryManagementSystem.WebApi.Controllers
                 return BadRequest(response.Message);
             }
 
+            SetRefreshTokenCookie("AuthToken", response.Token, response.RefreshTokenExpiredOn);
+            SetRefreshTokenCookie("RefreshToken", response.RefreshToken, response.RefreshTokenExpiration);
+
             return Ok(response);
         }
+
+        private void SetRefreshTokenCookie(string tokenType, string? token, DateTime? expires)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,  // Hanya dapat diakses oleh server
+                Secure = true,    // Hanya dikirim melalui HTTPS
+                SameSite = SameSiteMode.Strict, // Cegah serangan CSRF
+                Expires = expires // Waktu kadaluarsa token
+            };
+            Response.Cookies.Append(tokenType, token, cookieOptions);
+        }
+
         // POST: api/auth/logout
         [HttpPost("logout")]
         public async Task<IActionResult> Logout([FromBody] AppUserLogout model)
         {
-            if (!ModelState.IsValid)
+            // if (!ModelState.IsValid)
+            // {
+            //     return BadRequest(ModelState);
+            // }
+
+            // var response = await _authService.Logout(model.RefreshToken);
+            // if (response.Status == false)
+            // {
+            //     return BadRequest(response.Message);
+            // }
+
+            // return Ok(response);
+
+            try
             {
-                return BadRequest(ModelState);
+                // Hapus cookie
+                Response.Cookies.Delete("AuthToken", new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict
+                });
+                return Ok("Logout successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred during logout");
             }
 
-            var response = await _authService.Logout(model.RefreshToken);
-            if (response.Status == false)
-            {
-                return BadRequest(response.Message);
-            }
-
-            return Ok(response);
         }
         // POST: api/Auth/role
         [HttpPost("role")]
-        public async Task<IActionResult> CreateRole([FromBody]AddRoleRequest role)
+        public async Task<IActionResult> CreateRole([FromBody] AddRoleRequest role)
         {
             var result = await _authService.CreateRole(role.RoleName);
             return Ok(result);

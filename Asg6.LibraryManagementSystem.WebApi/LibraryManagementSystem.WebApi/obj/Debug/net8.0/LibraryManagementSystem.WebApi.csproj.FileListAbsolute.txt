@@ -127,6 +127,7 @@ C:\Users\user\source\repos\NET-Solecode-Academy\Asg5.LibraryManagementSystem.Web
 C:\Users\user\source\repos\NET-Solecode-Academy\Asg5.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\bin\Debug\net8.0\appsettings.Development.json
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\bin\Debug\net8.0\appsettings.json
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\bin\Debug\net8.0\LibraryManagementSystem.WebApi.staticwebassets.endpoints.json
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\bin\Debug\net8.0\LibraryManagementSystem.WebApi.exe
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\bin\Debug\net8.0\LibraryManagementSystem.WebApi.deps.json
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\bin\Debug\net8.0\LibraryManagementSystem.WebApi.runtimeconfig.json
@@ -238,14 +239,16 @@ D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSys
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\LibraryManagementSystem.WebApi.MvcApplicationPartsAssemblyInfo.cs
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\LibraryManagementSystem.WebApi.MvcApplicationPartsAssemblyInfo.cache
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\LibraryManagementSystem.WebApi.sourcelink.json
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\scopedcss\bundle\LibraryManagementSystem.WebApi.styles.css
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\staticwebassets.build.json
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\staticwebassets.development.json
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\staticwebassets\msbuild.LibraryManagementSystem.WebApi.Microsoft.AspNetCore.StaticWebAssets.props
+D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\staticwebassets\msbuild.LibraryManagementSystem.WebApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\staticwebassets\msbuild.build.LibraryManagementSystem.WebApi.props
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.LibraryManagementSystem.WebApi.props
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.LibraryManagementSystem.WebApi.props
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\staticwebassets.pack.json
-D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\scopedcss\bundle\LibraryManagementSystem.WebApi.styles.css
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\LibraryM.CA4C0971.Up2Date
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\LibraryManagementSystem.WebApi.dll
 D:\Projects\ASPDotNetProjects\Solecode\mini-project-sa\Asg6.LibraryManagementSystem.WebApi\LibraryManagementSystem.WebApi\obj\Debug\net8.0\refint\LibraryManagementSystem.WebApi.dll
