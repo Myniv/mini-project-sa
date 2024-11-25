@@ -22,5 +22,7 @@ namespace LibraryManagementSystem.Domain.Models.Responses
         public string? RefreshToken { get; set; }
 
         public DateTime RefreshTokenExpiration { get; set; }
+
+        public List<string> Role { get; set; } = null!;
     }
 }

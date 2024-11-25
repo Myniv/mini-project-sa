@@ -23,10 +23,10 @@ namespace LibraryManagementSystem.Application.Service
         private readonly IUserService _userService;
         private readonly ITokenService _tokenService;
 
-        public AuthService(UserManager<AppUser> userManager, 
-            RoleManager<IdentityRole> roleManager, 
-            IConfiguration configuration, 
-            IUserService userService, 
+        public AuthService(UserManager<AppUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            IConfiguration configuration,
+            IUserService userService,
             ITokenService tokenService)
         {
             _userManager = userManager;
@@ -81,7 +81,7 @@ namespace LibraryManagementSystem.Application.Service
                 UserPrivilage = model.UserPrivilage
             };
             var responseUser = await _userService.AddNewUser(newUserData);
-            if(responseUser == null)
+            if (responseUser == null)
             {
                 return null;
             }
@@ -97,13 +97,20 @@ namespace LibraryManagementSystem.Application.Service
         public async Task<AppUserResponse> Login(AppUserLogin model)
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
-            if(user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+
+            var roleArray = new List<string>();
+            if (user != null)
             {
-            
+                var roles = await _userManager.GetRolesAsync(user);
+                roleArray = roles.ToList();
+            }
+            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+
                 var accessToken = await _tokenService.IssueAccessToken(user);
                 var refreshToken = _tokenService.GenerateRefreshToken();
                 var tokenCreated = await _tokenService.SaveRefreshToken(user.UserName, refreshToken);
-                if(tokenCreated == null)
+                if (tokenCreated == null)
                 {
                     return new AppUserResponse()
                     {
@@ -118,8 +125,9 @@ namespace LibraryManagementSystem.Application.Service
                     RefreshTokenExpiredOn = tokenCreated.ExpiryDate,
                     ExpiredOn = accessToken.ExpiredOn,
                     Status = true,
-                    Message = "Login success!"
-                };            
+                    Message = "Login success!",
+                    Role = roleArray,
+                };
             }
 
             return new AppUserResponse()
@@ -153,12 +161,13 @@ namespace LibraryManagementSystem.Application.Service
             {
                 await _roleManager.CreateAsync(new IdentityRole(roleName));
             }
-            
 
-            return new AppUserResponse (){ 
+
+            return new AppUserResponse()
+            {
                 ExpiredOn = null,
                 Token = null,
-                Status = true, 
+                Status = true,
                 Message = "Role created successfully!"
             };
         }
