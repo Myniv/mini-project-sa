@@ -127,6 +127,9 @@ namespace LibraryManagementSystem.Application.Service
                     Status = true,
                     Message = "Login success!",
                     Role = roleArray,
+                    Name = user.UserName,
+                    Id = user.Id,
+                    Email = user.Email,
                 };
             }
 

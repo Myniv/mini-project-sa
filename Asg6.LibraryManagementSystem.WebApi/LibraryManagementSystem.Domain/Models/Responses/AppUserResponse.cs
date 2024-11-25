@@ -24,5 +24,9 @@ namespace LibraryManagementSystem.Domain.Models.Responses
         public DateTime RefreshTokenExpiration { get; set; }
 
         public List<string> Role { get; set; } = null!;
+
+        public string? Name { get; set; }
+        public string? Id { get; set; }
+        public string? Email { get; set; }
     }
 }
