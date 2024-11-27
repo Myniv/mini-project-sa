@@ -69,7 +69,7 @@ namespace CompanyWeb.Infrastructure.Migrations
                         .HasColumnName("refreshtoken");
 
                     b.Property<DateTime?>("RefreshTokenExpiredOn")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("refreshtokenexpiredon");
 
                     b.Property<string>("SecurityStamp")
@@ -158,7 +158,7 @@ namespace CompanyWeb.Infrastructure.Migrations
                         .HasColumnName("appuserid");
 
                     b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("createdat");
 
                     b.Property<string>("DeactivateReason")
@@ -238,7 +238,7 @@ namespace CompanyWeb.Infrastructure.Migrations
                         .HasColumnName("ssn");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("updatedat");
 
                     b.HasKey("Empno");
