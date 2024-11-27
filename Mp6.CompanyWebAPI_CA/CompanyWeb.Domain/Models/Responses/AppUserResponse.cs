@@ -21,6 +21,12 @@ namespace CompanyWeb.Domain.Models.Responses
         public DateTime RefreshTokenExpiration { get; set; }
         public List<string> Role { get; set; } = null!;
 
+        public string EmpNo { get; set; }
+
+        public string? EmailAddress { get; set; }
+
+
+
 
 
 
