@@ -43,7 +43,7 @@ namespace CompanyWeb.WebApi.Controllers
         public async Task<IActionResult> GetEmployees([FromQuery] int pageNumber, int perPage)
         {
             var response = await _employeeService.GetEmployees(pageNumber, perPage);
-            if(response == null)
+            if (response == null)
             {
                 return null;
             }
@@ -70,7 +70,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Employee>> GetEmployee([FromRoute]int id)
+        public async Task<ActionResult<Employee>> GetEmployee([FromRoute] int id)
         {
             var action = await _employeeService.GetEmployee(id);
             if (action == null)
@@ -180,7 +180,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> PutEmployee([FromRoute]int id, [FromBody] UpdateEmployeeRequest request)
+        public async Task<IActionResult> PutEmployee([FromRoute] int id, [FromBody] UpdateEmployeeRequest request)
         {
             var action = await _employeeService.UpdateEmployee(id, request);
             if (action == null)
@@ -208,7 +208,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteEmployee([FromRoute]int id)
+        public async Task<IActionResult> DeleteEmployee([FromRoute] int id)
         {
             var action = await _employeeService.DeleteEmployee(id);
             if (action == null)
@@ -241,9 +241,25 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SearchEmployee([FromQuery] SearchEmployeeQuery query, [FromBody]PageRequest pageRequest)
+        public async Task<IActionResult> SearchEmployee([FromQuery] SearchEmployeeQuery query, [FromBody] PageRequest pageRequest)
         {
             var response = await _employeeService.SearchEmployee(query, pageRequest);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
+
+        //Search Employee2
+        [Authorize(Roles = "Administrator, HR Manager")]
+        [HttpPost("search2")]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> SearchEmployee2([FromQuery] SearchEmployeeQuery2 query, [FromBody] PageRequest pageRequest)
+        {
+            var response = await _employeeService.SearchEmployee2(query, pageRequest);
             if (response == null)
             {
                 return NotFound();
@@ -272,7 +288,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeactivateEmployee([FromRoute] int id, [FromBody]DeactivateEmployeeRequest request)
+        public async Task<IActionResult> DeactivateEmployee([FromRoute] int id, [FromBody] DeactivateEmployeeRequest request)
         {
             var response = await _employeeService.DeactivateEmployee(id, request);
             if (response == null)

@@ -18,5 +18,7 @@ namespace CompanyWeb.Domain.Models.Responses.Employee
         public int? EmpLevel { get; set; }
         public string? EmpType { get; set; }
         public DateTime? UpdateAt { get; set; }
+        public bool IsActive { get; set; }
+
     }
 }
