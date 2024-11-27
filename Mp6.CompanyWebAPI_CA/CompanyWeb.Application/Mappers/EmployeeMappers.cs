@@ -42,6 +42,7 @@ namespace CompanyWeb.Application.Mappers
         {
             return new EmployeeSearchResponse()
             {
+                Empno = model.Empno,
                 Name = model.Fname + " " + model.Lname,
                 Departement = deptName,
                 Position = model.Position,
@@ -57,6 +58,8 @@ namespace CompanyWeb.Application.Mappers
         {
             return new EmployeeDetailResponse()
             {
+                Fname = model.Fname,
+                Lname = model.Lname,
                 Name = model.Fname + " " + model.Lname,
                 Position = model.Position,
                 EmpType = model.EmpType,
@@ -68,6 +71,13 @@ namespace CompanyWeb.Application.Mappers
                 CreatedAt = model.CreatedAt,
                 UpdatedAt = model.UpdatedAt,
                 EmpDependents = employeeDependents,
+                Dob = model.Dob,
+                Sex = model.Sex,
+                Ssn = model.Ssn,
+                Salary = model.Salary,
+                Deptno = model.Deptno,
+                IsActive = model.IsActive,
+                DeactivateReason = model.DeactivateReason,
             };
         }
     }
