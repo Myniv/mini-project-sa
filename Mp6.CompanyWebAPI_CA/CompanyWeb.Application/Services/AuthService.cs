@@ -56,6 +56,14 @@ namespace CompanyWeb.Application.Services
         public async Task<AppUserResponse> Login(AppUserLogin model)
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
+
+            var roleArray = new List<string>();
+            if (user != null)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                roleArray = roles.ToList();
+            }
+
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
 
@@ -63,7 +71,7 @@ namespace CompanyWeb.Application.Services
                 user.RefreshToken = tokens.NewRefreshToken;
                 if (user.RefreshToken == null)
                 {
-                    user.RefreshTokenExpiredOn = DateTime.UtcNow.AddDays(7);  
+                    user.RefreshTokenExpiredOn = DateTime.UtcNow.AddDays(7);
                 }
                 await _userManager.UpdateAsync(user);
                 return new AppUserResponse()
@@ -73,7 +81,8 @@ namespace CompanyWeb.Application.Services
                     RefreshTokenExpiredOn = user.RefreshTokenExpiredOn,
                     ExpiredOn = tokens.AccessToken.ExpiredOn,
                     Status = true,
-                    Message = "Login success!"
+                    Message = "Login success!",
+                    Role = roleArray,
                 };
             }
 
@@ -84,7 +93,7 @@ namespace CompanyWeb.Application.Services
                 Status = false,
                 Message = "Credentials not valid!"
             };
-        } 
+        }
 
         public async Task<AppUserResponse> Logout(string refreshToken)
         {
@@ -151,8 +160,8 @@ namespace CompanyWeb.Application.Services
             {
                 authClaims.Add(new Claim(ClaimTypes.Role, userRole));
             }
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
-            var expiredDate = DateTime.Now.AddHours(3);
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SigningKey"]));
+            var expiredDate = DateTime.Now.AddDays(3);
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:Issuer"],
                 audience: _configuration["JWT:Audience"],

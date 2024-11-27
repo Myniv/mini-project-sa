@@ -41,7 +41,41 @@ namespace CompanyWeb.WebApi.Controllers
                 return BadRequest(response.Message);
             }
 
+            SetRefreshTokenCookie("AuthToken", response.Token, response.RefreshTokenExpiredOn);
+            SetRefreshTokenCookie("RefreshToken", response.RefreshToken, response.RefreshTokenExpiration);
+
             return Ok(response);
+        }
+
+        private void SetRefreshTokenCookie(string tokenType, string? token, DateTime? expires)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,  // Hanya dapat diakses oleh server
+                Secure = true,    // Hanya dikirim melalui HTTPS
+                SameSite = SameSiteMode.Strict, // Cegah serangan CSRF
+                Expires = DateTime.Now.AddDays(3) // Waktu kadaluarsa token
+            };
+            Response.Cookies.Append(tokenType, token, cookieOptions);
+        }
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout([FromBody] AppUserLogout model)
+        {
+            try
+            {
+                Response.Cookies.Delete("AuthToken", new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict
+                });
+                return Ok("Logout Successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occured during logout");
+            }
         }
 
         // POST: api/Auth/RefreshToken
@@ -133,7 +167,7 @@ namespace CompanyWeb.WebApi.Controllers
         // POST: api/auth/appUserId
         [Authorize(Roles = "Administrator")]
         [HttpDelete("{appUserId}")]
-        public async Task<IActionResult> Delete([FromRoute]string appUserId)
+        public async Task<IActionResult> Delete([FromRoute] string appUserId)
         {
             if (!ModelState.IsValid)
             {
@@ -152,7 +186,7 @@ namespace CompanyWeb.WebApi.Controllers
         // PUT: api/auth/appUserId
         [Authorize(Roles = "Administrator")]
         [HttpPut("{appUserId}")]
-        public async Task<IActionResult> Update([FromRoute]string appUserId, [FromBody] UpdateUserRequest request)
+        public async Task<IActionResult> Update([FromRoute] string appUserId, [FromBody] UpdateUserRequest request)
         {
             if (!ModelState.IsValid)
             {

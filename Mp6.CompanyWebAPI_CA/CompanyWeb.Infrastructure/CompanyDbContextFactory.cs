@@ -10,7 +10,7 @@ namespace LMS.Infrastructure
             var optionsBuilder = new DbContextOptionsBuilder<CompanyDbContext>();
 
             // Replace with your actual connection string
-            optionsBuilder.UseNpgsql("Server=localhost;Database=lms_asg5;Username=postgres;Password=12345");
+            optionsBuilder.UseNpgsql("Server=localhost;Database=company;Username=postgres;Password=12345");
 
             return new CompanyDbContext(optionsBuilder.Options);
         }

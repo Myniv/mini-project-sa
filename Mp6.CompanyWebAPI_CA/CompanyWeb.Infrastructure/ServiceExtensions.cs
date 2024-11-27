@@ -76,8 +76,26 @@ namespace LMS.Infrastructure
                     ValidAudience = configuration["JWT:Audience"],
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        System.Text.Encoding.UTF8.GetBytes(configuration["JWT:Key"])
+                        System.Text.Encoding.UTF8.GetBytes(configuration["JWT:SigningKey"])
                     )
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnTokenValidated = context =>
+                    {
+                        return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        context.Response.StatusCode = 401;
+                        return Task.CompletedTask;
+                    },
+                    OnMessageReceived = context =>
+                    {
+                        // Ambil token dari cookie
+                        context.Token = context.Request.Cookies["AuthToken"];
+                        return Task.CompletedTask;
+                    }
                 };
             });
         }
