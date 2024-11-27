@@ -58,7 +58,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Departement), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Departement), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Departement), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetDepartement([FromRoute]int id)
+        public async Task<IActionResult> GetDepartement([FromRoute] int id)
         {
             var departement = await _departementService.GetDepartement(id);
             if (departement == null)
@@ -66,6 +66,16 @@ namespace CompanyWeb.WebApi.Controllers
                 return NotFound();
             }
             return Ok(departement);
+        }
+
+        [Authorize(Roles = "Administrator, Department Manager, Employee, Employee Supervisor")]
+        [HttpGet("all")]
+        [ProducesResponseType(typeof(Departement), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Departement), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(Departement), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetAllDepartements()
+        {
+            return Ok(await _departementService.GetAllDepartements());
         }
 
 
@@ -127,7 +137,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Departement), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Departement), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Departement), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> PutDepartement([FromRoute]int id, [FromBody] UpdateDepartementRequest request)
+        public async Task<IActionResult> PutDepartement([FromRoute] int id, [FromBody] UpdateDepartementRequest request)
         {
             if (id < 1)
             {
@@ -159,7 +169,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Departement), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Departement), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Departement), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteDepartement([FromRoute]int id)
+        public async Task<IActionResult> DeleteDepartement([FromRoute] int id)
         {
             if (id < 1)
             {

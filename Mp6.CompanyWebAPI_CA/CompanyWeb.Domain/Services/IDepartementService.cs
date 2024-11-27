@@ -16,6 +16,8 @@ namespace CompanyWeb.Domain.Services
         Task<object> UpdateDepartement(int id, UpdateDepartementRequest request);
         Task<object> DeleteDepartement(int id);
         Task<List<object>> GetDepartements(int pageNumber, int perPage);
+        Task<List<object>> GetAllDepartements();
+
         Task<object> GetDepartement(int id);
     }
 }
