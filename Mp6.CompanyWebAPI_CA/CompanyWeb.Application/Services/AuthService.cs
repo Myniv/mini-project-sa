@@ -61,8 +61,6 @@ namespace CompanyWeb.Application.Services
             // var empNo = await _userManager.GetUserId(user);
             // var empNo = await _employeeRepository.
 
-            var email = user.Email;
-
             var roleArray = new List<string>();
             if (user != null)
             {
@@ -89,8 +87,8 @@ namespace CompanyWeb.Application.Services
                     Status = true,
                     Message = "Login success!",
                     Role = roleArray,
-                    EmailAddress = email,
-                    // EmpNo = empNo,
+                    EmailAddress = user.Email,
+                    EmpNo = user.Id,
                 };
             }
 

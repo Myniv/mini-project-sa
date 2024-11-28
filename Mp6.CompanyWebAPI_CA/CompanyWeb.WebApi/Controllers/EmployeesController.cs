@@ -80,6 +80,19 @@ namespace CompanyWeb.WebApi.Controllers
             return Ok(action);
         }
 
+        [Authorize(Roles = "Administrator, HR Manager, Employee, Department Manager, Employee Supervisor")]
+        [HttpGet("all")]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAllEmployees()
+        {
+            var response = await _employeeService.GetAllEmployees();
+            if (response == null)
+            {
+                return null;
+            }
+            return Ok(response);
+        }
 
         /// <summary>
         /// Create employee
