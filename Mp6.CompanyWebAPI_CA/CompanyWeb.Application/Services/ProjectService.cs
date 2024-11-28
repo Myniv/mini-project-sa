@@ -79,10 +79,20 @@ namespace CompanyWeb.Application.Services
             return response.ToProjectResponse();
         }
 
-        public async Task<List<ProjectResponse>> GetProjects(int pageNumber, int perPage)
+        public async Task<object> GetProjects(int pageNumber, int perPage)
         {
+            var projects = await _projectRepository.GetAllProjects();
+            var temp = projects.AsQueryable();
+            var total = temp.Count();
+
             var response = await _projectRepository.GetProjects(pageNumber, perPage);
-            return response.Select(s => s.ToProjectResponse()).ToList();
+            var data = response.Select(s => s.ToProjectResponse()).ToList();
+
+            return new
+            {
+                Total = total,
+                Data = data,
+            };
 
         }
 
