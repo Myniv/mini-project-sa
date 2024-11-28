@@ -366,8 +366,8 @@ namespace CompanyWeb.Application.Services
                 return null;
             }
 
-            updateUser.Email = request.Email;
-            e.EmailAddress = request.Email;
+            updateUser.Email = request.EmailAddress;
+            e.EmailAddress = request.EmailAddress;
             await _userManager.UpdateAsync(updateUser);
 
             //if (roles.Any(x => x == "HR Manager" || x == "Administrator"))
@@ -382,6 +382,8 @@ namespace CompanyWeb.Application.Services
             e.Lname = request.Lname;
             e.Sex = request.Sex;
             e.UpdatedAt = DateTime.UtcNow;
+            e.PhoneNumber = request.PhoneNumber;
+            e.Deptno = request.Deptno;
 
             if (roles.Any(x => x == "Employee Supervisor" || x == "Administrator"))
             {
