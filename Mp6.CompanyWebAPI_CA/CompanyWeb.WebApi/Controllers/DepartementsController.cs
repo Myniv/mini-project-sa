@@ -30,7 +30,7 @@ namespace CompanyWeb.WebApi.Controllers
         /// <param name="request"></param>
         /// <returns> return departement list with paging </returns>
         // GET: api/Departements 
-        [Authorize(Roles = "Administrator, Employee Supervisor")]
+        [Authorize(Roles = "Administrator, Employee Supervisor, Department Manager,")]
         [HttpGet]
         [ProducesResponseType(typeof(Departement), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Departement), StatusCodes.Status404NotFound)]

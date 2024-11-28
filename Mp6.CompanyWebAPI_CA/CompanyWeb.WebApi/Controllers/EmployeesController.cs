@@ -80,7 +80,7 @@ namespace CompanyWeb.WebApi.Controllers
             return Ok(action);
         }
 
-        [Authorize(Roles = "Administrator, HR Manager, Employee, Department Manager, Employee Supervisor")]
+        [Authorize(Roles = "Administrator, HR Manager, Employee Supervisor")]
         [HttpGet("all")]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
@@ -265,7 +265,7 @@ namespace CompanyWeb.WebApi.Controllers
         }
 
         //Search Employee2
-        [Authorize(Roles = "Administrator, HR Manager")]
+        [Authorize(Roles = "Administrator, HR Manager, Department Manager")]
         [HttpPost("search2")]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]

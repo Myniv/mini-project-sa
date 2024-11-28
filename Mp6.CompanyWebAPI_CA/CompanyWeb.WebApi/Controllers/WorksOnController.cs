@@ -41,7 +41,7 @@ namespace CompanyWeb.WebApi.Controllers
         }
 
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, HR Manager")]
         [HttpGet("all")]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status404NotFound)]
