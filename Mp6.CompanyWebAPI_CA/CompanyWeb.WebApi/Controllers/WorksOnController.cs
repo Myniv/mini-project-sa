@@ -40,6 +40,16 @@ namespace CompanyWeb.WebApi.Controllers
             return await _worksOnService.GetWorksons(pageNumber, perPage);
         }
 
+
+        [Authorize(Roles = "Administrator")]
+        [HttpGet("all")]
+        [ProducesResponseType(typeof(Workson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Workson), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<Workson>>> GetAllWorksons()
+        {
+            return await _worksOnService.GetAllWorksons();
+        }
+
         /// <summary>
         /// Get work data by Project Number and Employee Number
         /// </summary>

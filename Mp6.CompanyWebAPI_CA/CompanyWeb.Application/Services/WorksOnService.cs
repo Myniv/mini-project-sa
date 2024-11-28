@@ -71,6 +71,12 @@ namespace CompanyWeb.Application.Services
             return wo.Select(s => s.ToWorksOnResponse()).ToList<object>();
         }
 
+        public async Task<List<Workson>> GetAllWorksons()
+        {
+            var response = await _worksOnRepository.GetAllWorksons();
+            return response.ToList();
+        }
+
         public async Task<object> UpdateWorksOn(int projNo, int empNo, UpdateWorksOnRequest request)
         {
             return await _worksOnRepository.Update(projNo, empNo, request);
