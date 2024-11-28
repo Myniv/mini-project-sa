@@ -56,7 +56,7 @@ namespace CompanyWeb.Application.Services
             };
 
             var data = await _projectRepository.Create(newProj);
-            if(data == null)
+            if (data == null)
             {
                 response.Message = $"Project with name {request.Projname} already exist";
                 return response;
@@ -64,7 +64,7 @@ namespace CompanyWeb.Application.Services
             response.Message = "Success";
             response.Status = true;
             response.Data = data.ToProjectResponse();
-            return response; 
+            return response;
         }
 
         public async Task<object> DeleteProject(int id)
@@ -82,6 +82,13 @@ namespace CompanyWeb.Application.Services
         public async Task<List<ProjectResponse>> GetProjects(int pageNumber, int perPage)
         {
             var response = await _projectRepository.GetProjects(pageNumber, perPage);
+            return response.Select(s => s.ToProjectResponse()).ToList();
+
+        }
+
+        public async Task<List<ProjectResponse>> GetAllProject()
+        {
+            var response = await _projectRepository.GetAllProjects();
             return response.Select(s => s.ToProjectResponse()).ToList();
 
         }
