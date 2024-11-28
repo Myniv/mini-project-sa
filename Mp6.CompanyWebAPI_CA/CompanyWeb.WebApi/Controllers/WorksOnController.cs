@@ -37,7 +37,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Workson), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<object>>> GetWorksons([FromQuery] int pageNumber, int perPage)
         {
-            return await _worksOnService.GetWorksons(pageNumber, perPage);
+            return Ok(await _worksOnService.GetWorksons(pageNumber, perPage));
         }
 
 
@@ -47,7 +47,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Workson), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Workson>>> GetAllWorksons()
         {
-            return await _worksOnService.GetAllWorksons();
+            return Ok(await _worksOnService.GetAllWorksons());
         }
 
         /// <summary>

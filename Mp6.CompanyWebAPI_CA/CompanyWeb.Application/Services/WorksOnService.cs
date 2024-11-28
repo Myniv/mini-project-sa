@@ -48,7 +48,7 @@ namespace CompanyWeb.Application.Services
             }
             var data = await _worksOnRepository.Create(request);
             response.Status = true;
-            response.Message = "Success";   
+            response.Message = "Success";
             response.Data = data;
             return response;
         }
@@ -65,10 +65,20 @@ namespace CompanyWeb.Application.Services
             return wo.ToWorksOnResponse();
         }
 
-        public async Task<List<object>> GetWorksons(int pageNumber, int perPage)
+        public async Task<object> GetWorksons(int pageNumber, int perPage)
         {
+            var getWorksonAll = await _worksOnRepository.GetAllWorksons();
+            var temp = getWorksonAll.AsQueryable();
+            var total = temp.Count();
+
             var wo = await _worksOnRepository.GetWorksons(pageNumber, perPage);
-            return wo.Select(s => s.ToWorksOnResponse()).ToList<object>();
+            var data = wo.Select(s => s.ToWorksOnResponse()).ToList<object>();
+
+            return new
+            {
+                Total = total,
+                Data = data,
+            };
         }
 
         public async Task<List<Workson>> GetAllWorksons()
