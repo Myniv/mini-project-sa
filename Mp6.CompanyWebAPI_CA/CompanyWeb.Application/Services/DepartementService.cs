@@ -31,13 +31,13 @@ namespace CompanyWeb.Application.Services
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DepartementService(IDepartementRepository departementRepository, 
-            IDepartementLocationRepository departementLocationRepository, 
-            IDepartementLocationService departementLocationService, 
-            ILocationRepository locationRepository, 
-            IEmployeeRepository employeeRepository, 
-            UserManager<AppUser> userManager, 
-            RoleManager<IdentityRole> roleManager, 
+        public DepartementService(IDepartementRepository departementRepository,
+            IDepartementLocationRepository departementLocationRepository,
+            IDepartementLocationService departementLocationService,
+            ILocationRepository locationRepository,
+            IEmployeeRepository employeeRepository,
+            UserManager<AppUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             IHttpContextAccessor httpContextAccessor)
         {
             _departementRepository = departementRepository;
@@ -69,7 +69,7 @@ namespace CompanyWeb.Application.Services
             }
             var response = await _departementRepository.Create(newDept);
 
-            foreach(var item in request.Location)
+            foreach (var item in request.Location)
             {
                 var newDepartementLocation = new AddDepartementLocationRequest()
                 {
@@ -112,8 +112,8 @@ namespace CompanyWeb.Application.Services
             var roles = await _userManager.GetRolesAsync(user);
 
             var allEmp = await _employeeRepository.GetAllEmployees();
-            var reqEmp = allEmp.Where(w=>w.AppUserId == user.Id).FirstOrDefault();
-            var listSupervisedDeptno = allEmp.Where(w => w.Deptno == reqEmp.Deptno).Select(s=>s.Deptno).Distinct();
+            var reqEmp = allEmp.Where(w => w.AppUserId == user.Id).FirstOrDefault();
+            var listSupervisedDeptno = allEmp.Where(w => w.Deptno == reqEmp.Deptno).Select(s => s.Deptno).Distinct();
 
             if (roles.Any(x => x == "Employee Supervisor"))
             {
@@ -147,6 +147,23 @@ namespace CompanyWeb.Application.Services
             var dl = await _departementLocationRepository.GetAllDepartementLocations();
             var departement = await _departementRepository.GetAllDepartements();
 
+            var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(userName);
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var allEmp = await _employeeRepository.GetAllEmployees();
+            var reqEmp = allEmp.Where(w => w.AppUserId == user.Id).FirstOrDefault();
+            var listSupervisedDeptno = allEmp.Where(w => w.Deptno == reqEmp.Deptno).Select(s => s.Deptno).Distinct();
+
+            if (roles.Any(x => x == "Employee Supervisor"))
+            {
+
+                return departement
+                    .Where(w => listSupervisedDeptno.Contains(w.Deptno))
+                    .Select(s => s.ToDepartementDetailResponse(dl.Where(w => w.Deptno == s.Deptno).Select(s2 => s2.LocationId).ToList()))
+                    .ToList<object>();
+            }
+
             return departement
                 .Select(s => s.ToDepartementDetailResponse(dl.Where(w => w.Deptno == s.Deptno).Select(s2 => s2.LocationId).ToList()))
                 .ToList<object>();
@@ -166,7 +183,7 @@ namespace CompanyWeb.Application.Services
             var user = await _userManager.FindByIdAsync(emp.AppUserId);
             var roles = await _userManager.GetRolesAsync(user);
 
-            if(roles.Any(x=>x == "Department Manager"))
+            if (roles.Any(x => x == "Department Manager"))
             {
                 dept.Mgrempno = request.Mgrempno;
             }
@@ -195,7 +212,7 @@ namespace CompanyWeb.Application.Services
             var deptLocations = await _departementLocationRepository.GetAllDepartementLocations();
             // update location
             var response = await _departementRepository.Update(dept);
-            return response.ToDepartementDetailResponse(deptLocations.Where(w=>w.Deptno == id).Select(s=>s.LocationId).ToList());
+            return response.ToDepartementDetailResponse(deptLocations.Where(w => w.Deptno == id).Select(s => s.LocationId).ToList());
         }
     }
 }
