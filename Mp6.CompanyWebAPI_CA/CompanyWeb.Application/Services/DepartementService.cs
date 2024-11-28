@@ -101,51 +101,14 @@ namespace CompanyWeb.Application.Services
                 .ToDepartementDetailResponse(dl.Where(w => w.Deptno == id).Select(s1 => s1.LocationId).ToList());
         }
 
-        public async Task<List<object>> GetDepartements(int pageNumber, int perPage)
+        public async Task<object> GetDepartements(int pageNumber, int perPage)
         {
             var locations = await _locationRepository.GetAllLocations();
             var dl = await _departementLocationRepository.GetAllDepartementLocations();
             var departement = await _departementRepository.GetDepartements(pageNumber, perPage);
 
-            var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
-            var user = await _userManager.FindByNameAsync(userName);
-            var roles = await _userManager.GetRolesAsync(user);
-
-            var allEmp = await _employeeRepository.GetAllEmployees();
-            var reqEmp = allEmp.Where(w => w.AppUserId == user.Id).FirstOrDefault();
-            var listSupervisedDeptno = allEmp.Where(w => w.Deptno == reqEmp.Deptno).Select(s => s.Deptno).Distinct();
-
-            if (roles.Any(x => x == "Employee Supervisor"))
-            {
-
-                return departement
-                    .Where(w => listSupervisedDeptno.Contains(w.Deptno))
-                    .Select(s => s.ToDepartementDetailResponse(dl.Where(w => w.Deptno == s.Deptno).Select(s2 => s2.LocationId).ToList()))
-                    .ToList<object>();
-            }
-
-            return departement
-                .Select(s => s.ToDepartementDetailResponse(dl.Where(w => w.Deptno == s.Deptno).Select(s2 => s2.LocationId).ToList()))
-                .ToList<object>();
-
-
-            /*var l = (from value in departement
-                    join deptLoc in dl on value.Deptno equals deptLoc.Deptno
-                    join loc in locations on deptLoc.LocationId equals loc.LocationId
-                    select deptLoc);
-           return departement
-               .Select(s1 => 
-               s1.ToDepartementDetailResponse(l.Where(w=> w.Deptno == s1.Deptno)
-               .Select(s2=>s2.LocationIdNavigation.LocationName)
-               ))
-               .ToList<object>();*/
-        }
-
-        public async Task<List<object>> GetAllDepartements()
-        {
-            var locations = await _locationRepository.GetAllLocations();
-            var dl = await _departementLocationRepository.GetAllDepartementLocations();
-            var departement = await _departementRepository.GetAllDepartements();
+            var departmentsAll = await _departementRepository.GetAllDepartements();
+            var temp = departmentsAll.AsQueryable();
 
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             var user = await _userManager.FindByNameAsync(userName);
@@ -155,64 +118,117 @@ namespace CompanyWeb.Application.Services
             var reqEmp = allEmp.Where(w => w.AppUserId == user.Id).FirstOrDefault();
             var listSupervisedDeptno = allEmp.Where(w => w.Deptno == reqEmp.Deptno).Select(s => s.Deptno).Distinct();
 
+            var total = temp.Count();
             if (roles.Any(x => x == "Employee Supervisor"))
             {
 
-                return departement
-                    .Where(w => listSupervisedDeptno.Contains(w.Deptno))
-                    .Select(s => s.ToDepartementDetailResponse(dl.Where(w => w.Deptno == s.Deptno).Select(s2 => s2.LocationId).ToList()))
-                    .ToList<object>();
-            }
 
-            return departement
-                .Select(s => s.ToDepartementDetailResponse(dl.Where(w => w.Deptno == s.Deptno).Select(s2 => s2.LocationId).ToList()))
-                .ToList<object>();
-        }
-
-        public async Task<object> UpdateDepartement(int id, UpdateDepartementRequest request)
-        {
-            var dept = await _departementRepository.GetDepartement(id);
-            var emp = await _employeeRepository.GetEmployee(request.Mgrempno.GetValueOrDefault());
-            if (dept == null)
-            {
-                return null;
-            }
-            dept.Deptname = request.Deptname;
-
-            // check id yang akan dijadikan manager
-            var user = await _userManager.FindByIdAsync(emp.AppUserId);
-            var roles = await _userManager.GetRolesAsync(user);
-
-            if (roles.Any(x => x == "Department Manager"))
-            {
-                dept.Mgrempno = request.Mgrempno;
-            }
-            else
-            {
                 return new
                 {
-                    Status = false,
-                    Message = "Employe is not a manager"
-                };
-            }
-
-
-            // update dept location
-            await _departementLocationRepository.Delete(id);
-            foreach (var item in request.Location)
-            {
-                var newDepartementLocation = new AddDepartementLocationRequest()
-                {
-                    Deptno = id,
-                    LocationId = item
-                };
-                await _departementLocationService.Create(newDepartementLocation);
-            }
-
-            var deptLocations = await _departementLocationRepository.GetAllDepartementLocations();
-            // update location
-            var response = await _departementRepository.Update(dept);
-            return response.ToDepartementDetailResponse(deptLocations.Where(w => w.Deptno == id).Select(s => s.LocationId).ToList());
+                    Total = total,
+                    Data = departement
+                    .Where(w => listSupervisedDeptno.Contains(w.Deptno))
+                    .Select(s => s.ToDepartementDetailResponse(dl.Where(w => w.Deptno == s.Deptno).Select(s2 => s2.LocationId).ToList()))
+                    .ToList<object>(),
+            };
         }
+
+        // var total = temp.Count();
+        var data = departement
+            .Select(s => s.ToDepartementDetailResponse(dl.Where(w => w.Deptno == s.Deptno).Select(s2 => s2.LocationId).ToList()))
+            .ToList<object>();
+
+        return new
+            {
+                Total = total,
+                Data = data,
+            };
+
+
+    /*var l = (from value in departement
+            join deptLoc in dl on value.Deptno equals deptLoc.Deptno
+            join loc in locations on deptLoc.LocationId equals loc.LocationId
+            select deptLoc);
+   return departement
+       .Select(s1 => 
+       s1.ToDepartementDetailResponse(l.Where(w=> w.Deptno == s1.Deptno)
+       .Select(s2=>s2.LocationIdNavigation.LocationName)
+       ))
+       .ToList<object>();*/
+}
+
+public async Task<List<object>> GetAllDepartements()
+{
+    var locations = await _locationRepository.GetAllLocations();
+    var dl = await _departementLocationRepository.GetAllDepartementLocations();
+    var departement = await _departementRepository.GetAllDepartements();
+
+    var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+    var user = await _userManager.FindByNameAsync(userName);
+    var roles = await _userManager.GetRolesAsync(user);
+
+    var allEmp = await _employeeRepository.GetAllEmployees();
+    var reqEmp = allEmp.Where(w => w.AppUserId == user.Id).FirstOrDefault();
+    var listSupervisedDeptno = allEmp.Where(w => w.Deptno == reqEmp.Deptno).Select(s => s.Deptno).Distinct();
+
+    if (roles.Any(x => x == "Employee Supervisor"))
+    {
+
+        return departement
+            .Where(w => listSupervisedDeptno.Contains(w.Deptno))
+            .Select(s => s.ToDepartementDetailResponse(dl.Where(w => w.Deptno == s.Deptno).Select(s2 => s2.LocationId).ToList()))
+            .ToList<object>();
+    }
+
+    return departement
+        .Select(s => s.ToDepartementDetailResponse(dl.Where(w => w.Deptno == s.Deptno).Select(s2 => s2.LocationId).ToList()))
+        .ToList<object>();
+}
+
+public async Task<object> UpdateDepartement(int id, UpdateDepartementRequest request)
+{
+    var dept = await _departementRepository.GetDepartement(id);
+    var emp = await _employeeRepository.GetEmployee(request.Mgrempno.GetValueOrDefault());
+    if (dept == null)
+    {
+        return null;
+    }
+    dept.Deptname = request.Deptname;
+
+    // check id yang akan dijadikan manager
+    var user = await _userManager.FindByIdAsync(emp.AppUserId);
+    var roles = await _userManager.GetRolesAsync(user);
+
+    if (roles.Any(x => x == "Department Manager"))
+    {
+        dept.Mgrempno = request.Mgrempno;
+    }
+    else
+    {
+        return new
+        {
+            Status = false,
+            Message = "Employe is not a manager"
+        };
+    }
+
+
+    // update dept location
+    await _departementLocationRepository.Delete(id);
+    foreach (var item in request.Location)
+    {
+        var newDepartementLocation = new AddDepartementLocationRequest()
+        {
+            Deptno = id,
+            LocationId = item
+        };
+        await _departementLocationService.Create(newDepartementLocation);
+    }
+
+    var deptLocations = await _departementLocationRepository.GetAllDepartementLocations();
+    // update location
+    var response = await _departementRepository.Update(dept);
+    return response.ToDepartementDetailResponse(deptLocations.Where(w => w.Deptno == id).Select(s => s.LocationId).ToList());
+}
     }
 }
