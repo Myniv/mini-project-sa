@@ -342,6 +342,30 @@ namespace CompanyWeb.Application.Services
 
             var total = temp.Count();
 
+            var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(userName);
+            var roles = await _userManager.GetRolesAsync(user);
+
+
+            var userRequest = employees.Where(w => w.AppUserId == user.Id).FirstOrDefault();
+
+
+            if (roles.Any(x => x == "Employee Supervisor"))
+            {
+                var data1 = employees
+                .Skip((pageRequest.PageNumber - 1) * pageRequest.PerPage)
+                .Take(pageRequest.PerPage)
+                .Where(w => w.DirectSupervisor == userRequest.Empno)
+                .Select(s => s.ToEmployeeSearchResponse(s.DeptnoNavigation.Deptname))
+                .ToListAsync();
+
+                return new
+                {
+                    Total = total,
+                    Data = data1
+                };
+            }
+
             var data = temp
                 .Skip((pageRequest.PageNumber - 1) * pageRequest.PerPage)
                 .Take(pageRequest.PerPage)
@@ -357,31 +381,32 @@ namespace CompanyWeb.Application.Services
 
         public async Task<object> UpdateEmployee(int id, UpdateEmployeeRequest request)
         {
-            var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
-            var user = await _userManager.FindByNameAsync(userName);
-            var roles = await _userManager.GetRolesAsync(user);
-
+            // Step 1: Fetch employee by ID
+            Console.WriteLine($"Step 1: Attempting to fetch employee with ID: {id}");
             var e = await _employeeRepository.GetEmployee(id);
             if (e == null)
             {
-                return null;
+                Console.WriteLine($"Step 1.1: Employee with ID {id} not found.");
+                return null; // Employee not found
             }
+            Console.WriteLine($"Step 1.2: Employee found. Email: {e.EmailAddress}");
 
+            // Step 2: Fetch user by email
+            Console.WriteLine($"Step 2: Attempting to fetch user by email: {e.EmailAddress}");
             var updateUser = await _userManager.FindByEmailAsync(e.EmailAddress);
             if (updateUser == null)
             {
-                return null;
+                Console.WriteLine($"Step 2.1: No user found with email: {e.EmailAddress}");
+                return null; // Associated user not found
             }
+            Console.WriteLine($"Step 2.2: User found. Updating email to: {request.EmailAddress}");
 
+            // Step 3: Update user details
             updateUser.Email = request.EmailAddress;
             e.EmailAddress = request.EmailAddress;
             await _userManager.UpdateAsync(updateUser);
 
-            //if (roles.Any(x => x == "HR Manager" || x == "Administrator"))
-            //{
-            //    e.Deptno = request.Deptno;
-            //}
-
+            // Continue with the remaining update logic
             e.Address = request.Address;
             e.Position = request.Position;
             e.Dob = request.Dob;
@@ -391,7 +416,10 @@ namespace CompanyWeb.Application.Services
             e.UpdatedAt = DateTime.UtcNow;
             e.PhoneNumber = request.PhoneNumber;
             e.Deptno = request.Deptno;
+            e.DirectSupervisor = request.DirectSupervisor;
 
+            // Add more conditional logic if needed
+            var roles = await _userManager.GetRolesAsync(updateUser);
             if (roles.Any(x => x == "Employee Supervisor" || x == "Administrator"))
             {
                 e.DirectSupervisor = request.DirectSupervisor;
@@ -405,13 +433,16 @@ namespace CompanyWeb.Application.Services
 
             e.EmpType = request.EmpType;
             e.EmpLevel = request.EmpLevel;
+
+            Console.WriteLine("Step 3: Updating employee in repository.");
             var response = await _employeeRepository.Update(e);
 
-            // update dependent
+            // Handle dependents
+            Console.WriteLine("Step 4: Updating employee dependents.");
             await _employeeDependentRepository.Delete(id);
             foreach (var item in request.EmpDependents)
             {
-                var newEmpDependent = new EmployeeDependent()
+                var newEmpDependent = new EmployeeDependent
                 {
                     DependentEmpno = id,
                     BirthDate = item.BirthDate,
@@ -423,9 +454,11 @@ namespace CompanyWeb.Application.Services
                 await _employeeDependentRepository.Create(newEmpDependent);
             }
 
+            Console.WriteLine("Step 5: Fetching updated dependents for response.");
             var dependents = await _employeeDependentRepository.GetAllEmployeeDependents();
             return response.ToEmployeeResponse(dependents.Where(w => w.DependentEmpno == id).ToList());
         }
+
 
         MSEmployeeDetailResponse CreateResponse()
         {

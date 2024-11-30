@@ -44,7 +44,7 @@ namespace CompanyWeb.WebApi.Controllers
             return Ok(await _projectService.GetProjects(pageNumber, perPage));
         }
 
-        [Authorize(Roles = "Administrator, HR Manager, Department Manager, Employee Supervisor")]
+        // [Authorize(Roles = "Administrator, HR Manager, Department Manager, Employee Supervisor")]
         [HttpGet("all")]
         [ProducesResponseType(typeof(Project), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Project), StatusCodes.Status404NotFound)]

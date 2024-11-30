@@ -80,7 +80,7 @@ namespace CompanyWeb.WebApi.Controllers
             return Ok(action);
         }
 
-        [Authorize(Roles = "Administrator, HR Manager, Employee Supervisor")]
+        // [Authorize(Roles = "Administrator, HR Manager, Employee Supervisor")]
         [HttpGet("all")]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
@@ -198,6 +198,7 @@ namespace CompanyWeb.WebApi.Controllers
             var action = await _employeeService.UpdateEmployee(id, request);
             if (action == null)
             {
+                Console.WriteLine($"Employee with ID {id} not found.");
                 return NotFound();
             }
             return Ok(action);
@@ -265,7 +266,7 @@ namespace CompanyWeb.WebApi.Controllers
         }
 
         //Search Employee2
-        [Authorize(Roles = "Administrator, HR Manager, Department Manager")]
+        [Authorize(Roles = "Administrator, HR Manager, Department Manager, Employee Supervisor")]
         [HttpPost("search2")]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]

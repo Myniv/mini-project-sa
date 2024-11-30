@@ -89,6 +89,7 @@ namespace CompanyWeb.Application.Services
                     Role = roleArray,
                     EmailAddress = user.Email,
                     EmpNo = user.Id,
+                    User = user,
                 };
             }
 

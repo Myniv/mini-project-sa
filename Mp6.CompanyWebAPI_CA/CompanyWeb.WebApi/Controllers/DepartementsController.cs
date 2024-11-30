@@ -68,7 +68,7 @@ namespace CompanyWeb.WebApi.Controllers
             return Ok(departement);
         }
 
-        [Authorize(Roles = "Administrator, Department Manager, Employee, Employee Supervisor")]
+        // [Authorize(Roles = "Administrator, Department Manager, Employee, Employee Supervisor")]
         [HttpGet("all")]
         [ProducesResponseType(typeof(Departement), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Departement), StatusCodes.Status404NotFound)]

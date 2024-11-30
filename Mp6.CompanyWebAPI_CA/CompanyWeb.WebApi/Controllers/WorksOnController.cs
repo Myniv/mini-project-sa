@@ -31,7 +31,7 @@ namespace CompanyWeb.WebApi.Controllers
         /// <param name="request"></param>
         /// <returns> return all work data </returns>
         // GET: api/Worksons
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Employee Supervisor, Department Manager, HR Manager")]
         [HttpGet]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status404NotFound)]
@@ -41,7 +41,7 @@ namespace CompanyWeb.WebApi.Controllers
         }
 
 
-        [Authorize(Roles = "Administrator, HR Manager")]
+        // [Authorize(Roles = "Administrator, HR Manager")]
         [HttpGet("all")]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status404NotFound)]
@@ -66,7 +66,7 @@ namespace CompanyWeb.WebApi.Controllers
         /// <param name="request"></param>
         /// <returns> return work data by Project and Employee Number </returns>
         // GET: api/Worksons/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Employee Supervisor")]
         [HttpGet("{projNo}/{empNo}")]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status404NotFound)]
@@ -104,7 +104,7 @@ namespace CompanyWeb.WebApi.Controllers
         /// <returns> return work data that just updated </returns>
         // PUT: api/Worksons/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Employee Supervisor, Department Manager ")]
         [HttpPut("{projNo}/{empNo}")]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status404NotFound)]
@@ -146,7 +146,7 @@ namespace CompanyWeb.WebApi.Controllers
         /// <returns> return work data that just created </returns>
         // POST: api/Worksons
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Employee Supervisor")]
         [HttpPost]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status400BadRequest)]
@@ -177,7 +177,7 @@ namespace CompanyWeb.WebApi.Controllers
         /// <param name="request"></param>
         /// <returns> return work data that just deleted </returns>
         // DELETE: api/Worksons/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Employee Supervisor")]
         [HttpDelete("{projNo}/{empNo}")]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status400BadRequest)]
