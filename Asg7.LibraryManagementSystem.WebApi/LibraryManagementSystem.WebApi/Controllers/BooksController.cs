@@ -23,7 +23,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
             _bookService = bookService;
         }
         // GET: api/<BooksController>
-        [Authorize(Roles = "Librarian")]
+        [Authorize(Roles = "Librarian, Library Manager")]
         [HttpGet]
         public async Task<IEnumerable<object>> Get()
         {
@@ -31,12 +31,12 @@ namespace LibraryManagementSystem.WebApi.Controllers
         }
 
         // GET api/<BooksController>/5
-        [Authorize(Roles = "Librarian")]
+        [Authorize(Roles = "Librarian, Library Manager")]
         [HttpGet("{bookId}")]
         public async Task<IActionResult> Get([FromRoute] int bookId)
         {
             var book = await _bookService.GetBookById(bookId);
-            if(book == null)
+            if (book == null)
             {
                 return NotFound();
             }
@@ -44,12 +44,12 @@ namespace LibraryManagementSystem.WebApi.Controllers
         }
 
         // POST api/<BooksController>
-        [Authorize(Roles = "Librarian")]
+        [Authorize(Roles = "Librarian, Library Manager")]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AddBookRequest request)
         {
             var response = await _bookService.AddNewBook(request);
-            if(response == null)
+            if (response == null)
             {
                 return BadRequest();
             }
@@ -57,9 +57,9 @@ namespace LibraryManagementSystem.WebApi.Controllers
         }
 
         // PUT api/<BooksController>/5
-        [Authorize(Roles = "Librarian")]
+        [Authorize(Roles = "Librarian, Library Manager")]
         [HttpPut("{bookId}")]
-        public async Task<IActionResult> Put([FromRoute]int bookId, [FromBody]UpdateBookRequest request)
+        public async Task<IActionResult> Put([FromRoute] int bookId, [FromBody] UpdateBookRequest request)
         {
             var response = await _bookService.UpdateBook(bookId, request);
             if (response == null)
@@ -70,9 +70,9 @@ namespace LibraryManagementSystem.WebApi.Controllers
         }
 
         // DELETE api/<BooksController>/5
-        [Authorize(Roles = "Librarian")]
+        [Authorize(Roles = "Librarian, Library Manager")]
         [HttpDelete("{bookId}")]
-        public async Task<IActionResult> Delete([FromRoute]int bookId, [FromBody]DeleteBookRequest request)
+        public async Task<IActionResult> Delete([FromRoute] int bookId, [FromBody] DeleteBookRequest request)
         {
             var response = await _bookService.DeleteBook(bookId, request);
             if (response == null)
@@ -83,7 +83,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
         }
 
         [HttpPost("search")]
-        public async Task<IActionResult> SearchBooksPaged([FromQuery] SearchBookQuery query, [FromBody]PageRequest pageRequest)
+        public async Task<IActionResult> SearchBooksPaged([FromQuery] SearchBookQuery query, [FromBody] PageRequest pageRequest)
         {
             var response = await _bookService.GetAllBookSearchPaged(query, pageRequest);
             if (response == null)

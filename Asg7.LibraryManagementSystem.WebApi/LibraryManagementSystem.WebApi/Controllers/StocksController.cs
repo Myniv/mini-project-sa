@@ -76,18 +76,18 @@ namespace LibraryManagementSystem.WebApi.Controllers
         }
 
         // POST api/<StocksController>/book-request
-        [Authorize(Roles = "Library User")]
-        [HttpPost("book-request")]
-        public async Task<IActionResult> UserBookRequest([FromBody] UserBookRequest request)
-        {
-            var response = await _stockService.UserBookRequest(request);
-            if (response == null)
+            [Authorize(Roles = "Library User")]
+            [HttpPost("book-request")]
+            public async Task<IActionResult> UserBookRequest([FromBody] UserBookRequest request)
             {
-                return BadRequest();
-            }
-            return Ok(response);
+                var response = await _stockService.UserBookRequest(request);
+                if (response == null)
+                {
+                    return BadRequest();
+                }
+                return Ok(response);
 
-        }
+            }
 
         // POST api/<StocksController>/book-approval
         [Authorize(Roles = "Librarian, Library Manager")]
