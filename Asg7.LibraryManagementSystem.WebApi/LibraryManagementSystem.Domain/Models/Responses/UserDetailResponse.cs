@@ -14,6 +14,7 @@ namespace LibraryManagementSystem.Domain.Models.Responses
         public string AppUserId { get; set; } = null!;
         public string FName { get; set; } = null!;
         public string LName { get; set; } = null!;
+        public string UserName { get; set; } = null!;
         public string UserPosition { get; set; } = null!;
         public string UserPrivilage { get; set; } = null!;
         public string UserNotes { get; set; } = null!;

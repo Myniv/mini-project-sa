@@ -24,6 +24,10 @@ public partial class User
     [StringLength(255)]
     public string LName { get; set; } = null!;
 
+    [Column("username")]
+    [StringLength(255)]
+    public string UserName { get; set; } = null!;
+
     [Column("userposition")]
     [StringLength(255)]
     public string UserPosition { get; set; } = null!;

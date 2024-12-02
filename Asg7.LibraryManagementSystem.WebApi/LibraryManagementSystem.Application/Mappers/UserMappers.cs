@@ -10,7 +10,7 @@ namespace LibraryManagementSystem.Application.Mappers
 {
     public static class UserMappers
     {
-        public static UserDetailResponse ToUserResponse (this User userModel)
+        public static UserDetailResponse ToUserResponse(this User userModel)
         {
             return new UserDetailResponse()
             {
@@ -23,6 +23,7 @@ namespace LibraryManagementSystem.Application.Mappers
                 UserNotes = userModel.UserNotes,
                 LibraryCardExpiredDate = userModel.LibraryCardExpiredDate,
                 LibraryCardNumber = userModel.LibraryCardNumber,
+                UserName = userModel.UserName,
             };
         }
     }

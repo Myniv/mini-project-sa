@@ -33,11 +33,12 @@ namespace LibraryManagementSystem.Application.Service
                 LName = request.lName,
                 UserPosition = request.UserPosition,
                 UserPrivilage = request.UserPrivilage,
+                UserName = request.UserName,
                 LibraryCardExpiredDate = DateOnly.MaxValue,
                 LibraryCardNumber = "",
             };
             var user = await _userRepository.Add(newUser);
-            if(user.UserPosition != "Library User")
+            if (user.UserPosition != "Library User")
             {
                 user.LibraryCardNumber = await GenerateLibraryCardNumber(user);
                 user.LibraryCardExpiredDate = DateOnly.FromDateTime(DateTime.Now.AddYears(5));
@@ -71,14 +72,14 @@ namespace LibraryManagementSystem.Application.Service
         public async Task<User> GetUserByUsername(string username)
         {
             var allUser = await _userRepository.GetAll();
-            var user = allUser.Where(w=>w.FName == username).FirstOrDefault();
+            var user = allUser.Where(w => w.UserName == username).FirstOrDefault();
             return user;
         }
 
         public async Task<User> UpdateUser(int userId, UpdateUserRequest request)
         {
             var user = await _userRepository.Get(userId);
-            if(user == null)
+            if (user == null)
             {
                 return null;
             }
@@ -95,12 +96,12 @@ namespace LibraryManagementSystem.Application.Service
 
         private async Task<string> GenerateLibraryCardNumber(User user)
         {
-            var random = new Random().Next(1000,10000);
+            var random = new Random().Next(1000, 10000);
             var number = $"{user.UserId}-{random}";
 
             var users = await _userRepository.GetAll();
 
-            if (users.Any(a=>a.LibraryCardNumber == number))
+            if (users.Any(a => a.LibraryCardNumber == number))
             {
                 GenerateLibraryCardNumber(user);
             }
