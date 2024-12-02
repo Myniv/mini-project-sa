@@ -15,15 +15,20 @@ namespace LibraryManagementSystem.WebApi.Controllers
         private readonly ITokenService _tokenService;
         private readonly UserManager<AppUser> _userManager;
         private readonly IEmailService _emailService;
+        private readonly IWebHostEnvironment _environment;
+
         public AuthController(IAuthService authService,
             ITokenService tokenService,
             UserManager<AppUser> userManager,
-            IEmailService emailService)
+            IEmailService emailService,
+            IWebHostEnvironment environment)
         {
             _authService = authService;
             _tokenService = tokenService;
             _userManager = userManager;
             _emailService = emailService;
+            _environment = environment ?? throw new ArgumentNullException(nameof(environment));
+
         }
 
 
@@ -203,6 +208,87 @@ namespace LibraryManagementSystem.WebApi.Controllers
             var response = _emailService.SendMail(request);
             return Ok(response);
         }
+
+        [HttpPost("upload")]
+        public async Task<IActionResult> Upload(IFormFile file)
+        {
+            try
+            {
+                long MaxFileSize = 2 * 1024 * 1024; // 2MB
+                string[] AllowedFileTypes = new[] {
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    };
+                if (file == null || file.Length == 0)
+                    return BadRequest("File is empty");
+                if (file.Length > MaxFileSize)
+                    return BadRequest("File size exceeds 2MB limit");
+                if (!AllowedFileTypes.Contains(file.ContentType))
+                    return BadRequest("Only PDF and Word documents are allowed");
+                string uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads");
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                // Save file to directory
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+                return Ok("File uploaded succesfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
+        // [HttpPost("upload")]
+        // public async Task<IActionResult> Upload(IFormFile file)
+        // {
+        //     try
+        //     {
+        //         // File constraints
+        //         long MaxFileSize = 2 * 1024 * 1024; // 2MB
+        //         string[] AllowedFileTypes = new[]
+        //         {
+        //     "application/pdf",
+        //     "application/msword",
+        //     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        // };
+
+        //         // Validate file
+        //         if (file == null || file.Length == 0)
+        //             return BadRequest("File is empty.");
+        //         if (file.Length > MaxFileSize)
+        //             return BadRequest("File size exceeds 2MB limit.");
+        //         if (!AllowedFileTypes.Contains(file.ContentType))
+        //             return BadRequest("Only PDF and Word documents are allowed.");
+
+        //         // Ensure upload directory exists
+        //         string uploadsFolder = Path.Combine(_environment.WebRootPath ?? "wwwroot", "uploads");
+        //         if (!Directory.Exists(uploadsFolder))
+        //             Directory.CreateDirectory(uploadsFolder);
+
+        //         // Generate unique file name and save file
+        //         string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(file.FileName);
+        //         string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+        //         using (var fileStream = new FileStream(filePath, FileMode.Create))
+        //         {
+        //             await file.CopyToAsync(fileStream);
+        //         }
+
+        //         return Ok(new { Message = "File uploaded successfully.", FilePath = filePath });
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, $"Internal server error: {ex.Message}");
+        //     }
+        // }
+
 
 
     }

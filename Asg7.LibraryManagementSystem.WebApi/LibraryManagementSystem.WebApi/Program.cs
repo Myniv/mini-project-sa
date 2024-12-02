@@ -57,6 +57,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("AllowViteApp");
 
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();
