@@ -50,7 +50,9 @@ namespace LibraryManagementSystem.Infrastructure
                 options.Password.RequiredLength = 8;
                 options.SignIn.RequireConfirmedEmail = true;
             })
-            .AddEntityFrameworkStores<LMSDbContext>();
+            .AddEntityFrameworkStores<LMSDbContext>()
+            .AddDefaultTokenProviders();
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme =
@@ -73,7 +75,26 @@ namespace LibraryManagementSystem.Infrastructure
                         System.Text.Encoding.UTF8.GetBytes(configuration["JWT:SigningKey"])
                     )
                 };
-            });  
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnTokenValidated = context =>
+                    {
+                        return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        context.Response.StatusCode = 401;
+                        return Task.CompletedTask;
+                    },
+                    OnMessageReceived = context =>
+                    {
+                        // Ambil token dari cookie
+                        context.Token = context.Request.Cookies["AuthToken"];
+                        return Task.CompletedTask;
+                    }
+                };
+            });
         }
     }
 }

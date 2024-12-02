@@ -25,10 +25,10 @@ namespace LibraryManagementSystem.Application.Service
         private readonly IUserRepository _userRepository;
         private readonly ITokenService _tokenService;
 
-        public AuthService(UserManager<AppUser> userManager, 
-            RoleManager<IdentityRole> roleManager, 
-            IConfiguration configuration, 
-            IUserService userService, 
+        public AuthService(UserManager<AppUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            IConfiguration configuration,
+            IUserService userService,
             ITokenService tokenService,
             IUserRepository userRepository)
         {
@@ -46,7 +46,13 @@ namespace LibraryManagementSystem.Application.Service
 
             if (targetUser == null)
             {
-                return null;
+                return new AppUserResponse()
+                {
+                    ExpiredOn = null,
+                    Token = null,
+                    Status = false,
+                    Message = "Target user not found."
+                };
             }
 
             var userExist = await _userManager.FindByNameAsync(model.UserName);
@@ -94,13 +100,21 @@ namespace LibraryManagementSystem.Application.Service
         public async Task<AppUserResponse> Login(AppUserLogin model)
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
-            if(user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+
+            var roleArray = new List<string>();
+            if (user != null)
             {
-            
+                var roles = await _userManager.GetRolesAsync(user);
+                roleArray = roles.ToList();
+            }
+
+            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+
                 var accessToken = await _tokenService.IssueAccessToken(user);
                 var refreshToken = _tokenService.GenerateRefreshToken();
                 var tokenCreated = await _tokenService.SaveRefreshToken(user.UserName, refreshToken);
-                if(tokenCreated == null)
+                if (tokenCreated == null)
                 {
                     return new AppUserResponse()
                     {
@@ -116,7 +130,8 @@ namespace LibraryManagementSystem.Application.Service
                     ExpiredOn = accessToken.ExpiredOn,
                     Status = true,
                     Message = "Login success!"
-                };            
+
+                };
             }
 
             return new AppUserResponse()
@@ -124,7 +139,12 @@ namespace LibraryManagementSystem.Application.Service
                 Token = null,
                 ExpiredOn = null,
                 Status = false,
-                Message = "Credentials not valid!"
+                Message = "Credentials not valid!",
+                Role = roleArray,
+                Name = user.UserName,
+                Id = user.Id,
+                Email = user.Email,
+                User = user,
             };
         }
         public async Task<AppUserResponse> Logout(string refreshToken)
@@ -150,12 +170,13 @@ namespace LibraryManagementSystem.Application.Service
             {
                 await _roleManager.CreateAsync(new IdentityRole(roleName));
             }
-            
 
-            return new AppUserResponse (){ 
+
+            return new AppUserResponse()
+            {
                 ExpiredOn = null,
                 Token = null,
-                Status = true, 
+                Status = true,
                 Message = "Role created successfully!"
             };
         }

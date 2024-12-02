@@ -15,5 +15,7 @@ namespace LibraryManagementSystem.Domain.Models.Requests.Users
         public string UserPosition { get; set; } = null!;
         public string UserPrivilage { get; set; } = null!;
         public string? UserNotes { get; set; }
+        public string AppUserId { get; set; } = null!;
+
     }
 }

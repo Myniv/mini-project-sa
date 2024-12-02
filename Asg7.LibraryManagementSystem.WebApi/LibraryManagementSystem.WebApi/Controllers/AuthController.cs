@@ -15,7 +15,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
         private readonly ITokenService _tokenService;
         private readonly UserManager<AppUser> _userManager;
         private readonly IEmailService _emailService;
-        public AuthController(IAuthService authService, 
+        public AuthController(IAuthService authService,
             ITokenService tokenService,
             UserManager<AppUser> userManager,
             IEmailService emailService)
@@ -37,10 +37,10 @@ namespace LibraryManagementSystem.WebApi.Controllers
             }
 
             var response = await _authService.Register(model);
-/*            if(response.Status == false)
-            {
-                return BadRequest(response.Message);
-            }*/
+            /*            if(response.Status == false)
+                        {
+                            return BadRequest(response.Message);
+                        }*/
 
             return Ok(response);
         }
@@ -60,8 +60,25 @@ namespace LibraryManagementSystem.WebApi.Controllers
                 return BadRequest(response.Message);
             }
 
+            SetRefreshTokenCookie("AuthToken", response.Token, response.RefreshTokenExpiredOn);
+            SetRefreshTokenCookie("RefreshToken", response.RefreshToken, response.RefreshTokenExpiration);
+
+
             return Ok(response);
         }
+
+        private void SetRefreshTokenCookie(string tokenType, string? token, DateTime? expires)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,  // Hanya dapat diakses oleh server
+                Secure = true,    // Hanya dikirim melalui HTTPS
+                SameSite = SameSiteMode.Strict, // Cegah serangan CSRF
+                Expires = DateTime.Now.AddDays(3) // Waktu kadaluarsa token
+            };
+            Response.Cookies.Append(tokenType, token, cookieOptions);
+        }
+
         // POST: api/auth/logout
         [HttpPost("logout")]
         public async Task<IActionResult> Logout([FromBody] AppUserLogout model)
@@ -81,7 +98,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
         }
         // POST: api/Auth/role
         [HttpPost("role")]
-        public async Task<IActionResult> CreateRole([FromBody]AddRoleRequest role)
+        public async Task<IActionResult> CreateRole([FromBody] AddRoleRequest role)
         {
             var result = await _authService.CreateRole(role.RoleName);
             return Ok(result);
@@ -156,13 +173,13 @@ namespace LibraryManagementSystem.WebApi.Controllers
         [HttpPost("email")]
         public IActionResult SendEmail([FromBody] MailData request)
         {
-            if(request == null)
+            if (request == null)
             {
                 return BadRequest();
             }
 
             var emailBody = System.IO.File.ReadAllText(@"./EmailTemplate.html");
-            
+
             emailBody = string.Format(emailBody,
                     "Library Management System",
                     DateTime.UtcNow

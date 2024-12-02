@@ -13,7 +13,7 @@ namespace LibraryManagementSystem.Infrastructure.Context
         public LMSDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<LMSDbContext>();
-            optionsBuilder.UseNpgsql("Server=localhost;Database=lms_asg5;Username=postgres;Password=123900");
+            optionsBuilder.UseNpgsql("Server=localhost;Database=lms_asg5;Username=postgres;Password=12345");
 
             return new LMSDbContext(optionsBuilder.Options);
         }

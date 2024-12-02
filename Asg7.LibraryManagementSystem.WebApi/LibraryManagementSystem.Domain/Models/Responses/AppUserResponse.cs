@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LibraryManagementSystem.Domain.Models.Entities;
 
 namespace LibraryManagementSystem.Domain.Models.Responses
 {
@@ -16,8 +17,16 @@ namespace LibraryManagementSystem.Domain.Models.Responses
         public DateTime? ExpiredOn { get; set; }
         public DateTime? RefreshTokenExpiredOn { get; set; }
 
+        public AppUser? User { get; set; }
+
+        public DateTime RefreshTokenExpiration { get; set; }
+
+        public List<string> Role { get; set; } = null!;
+
+        public string? Name { get; set; }
+        public string? Id { get; set; }
+        public string? Email { get; set; }
 
 
-        
     }
 }
