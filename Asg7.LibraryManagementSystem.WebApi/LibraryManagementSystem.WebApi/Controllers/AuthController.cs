@@ -83,18 +83,33 @@ namespace LibraryManagementSystem.WebApi.Controllers
         [HttpPost("logout")]
         public async Task<IActionResult> Logout([FromBody] AppUserLogout model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            // if (!ModelState.IsValid)
+            // {
+            //     return BadRequest(ModelState);
+            // }
 
-            var response = await _authService.Logout(model.RefreshToken);
-            if (response.Status == false)
-            {
-                return BadRequest(response.Message);
-            }
+            // var response = await _authService.Logout(model.RefreshToken);
+            // if (response.Status == false)
+            // {
+            //     return BadRequest(response.Message);
+            // }
 
-            return Ok(response);
+            // return Ok(response);
+            try
+            {
+                // Hapus cookie
+                Response.Cookies.Delete("AuthToken", new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict
+                });
+                return Ok("Logout successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred during logout");
+            }
         }
         // POST: api/Auth/role
         [HttpPost("role")]
