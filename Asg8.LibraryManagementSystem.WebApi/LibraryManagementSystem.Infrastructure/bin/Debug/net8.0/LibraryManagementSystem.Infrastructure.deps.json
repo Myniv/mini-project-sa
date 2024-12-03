@@ -818,7 +818,10 @@
           "Polybioz.HtmlRenderer.PdfSharp.Core": "1.0.0"
         },
         "runtime": {
-          "LibraryManagementSystem.Application.dll": {}
+          "LibraryManagementSystem.Application.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "LibraryManagementSystem.Domain/1.0.0": {
@@ -830,7 +833,10 @@
           "Microsoft.Extensions.Identity.Core": "8.0.8"
         },
         "runtime": {
-          "LibraryManagementSystem.Domain.dll": {}
+          "LibraryManagementSystem.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

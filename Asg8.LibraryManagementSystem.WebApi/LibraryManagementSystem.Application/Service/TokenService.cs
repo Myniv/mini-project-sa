@@ -37,7 +37,7 @@ namespace LibraryManagementSystem.Application.Service
         public async Task<string> RetrieveUsernameByRefreshToken(string refreshToken)
         {
             var tokenRecord = await _tokenRepository.Get(refreshToken);
-            if(tokenRecord == null)
+            if (tokenRecord == null)
             {
                 return null;
             }
@@ -47,7 +47,7 @@ namespace LibraryManagementSystem.Application.Service
         public async Task<bool> RevokeRefreshToken(string refreshToken)
         {
             var tokenRecord = await _tokenRepository.Get(refreshToken);
-            if( tokenRecord == null)
+            if (tokenRecord == null)
             {
                 return false;
             }
@@ -58,7 +58,7 @@ namespace LibraryManagementSystem.Application.Service
         public async Task<RefreshToken> SaveRefreshToken(string username, string token)
         {
             var user = await _userManager.FindByNameAsync(username);
-            if(user == null)
+            if (user == null)
             {
                 return null;
             }
@@ -71,7 +71,7 @@ namespace LibraryManagementSystem.Application.Service
             };
 
             var findRt = await _tokenRepository.GetRefreshTokenByAppUserId(user.Id);
-            if(findRt != null)
+            if (findRt != null)
             {
                 return await this.UpdateRefreshToken(user.Id, token);
             }
@@ -103,7 +103,7 @@ namespace LibraryManagementSystem.Application.Service
                 authClaims.Add(new Claim(ClaimTypes.Role, userRole));
             }
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SigningKey"]));
-            var expiredDate = DateTime.Now.AddHours(3);
+            var expiredDate = DateTime.UtcNow.AddDays(3);
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:Issuer"],
                 audience: _configuration["JWT:Audience"],
@@ -128,8 +128,8 @@ namespace LibraryManagementSystem.Application.Service
                 return null;
             }
             findRt.Token = token;
-            findRt.ExpiryDate = DateTime.UtcNow.AddHours(3);
-            await _tokenRepository.Update(findRt); 
+            findRt.ExpiryDate = DateTime.UtcNow.AddDays(7);
+            await _tokenRepository.Update(findRt);
             return findRt;
         }
     }

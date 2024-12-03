@@ -1,4 +1,6 @@
-﻿using LibraryManagementSystem.Domain.Models.Entities;
+﻿using LibraryManagementSystem.Application.Mappers;
+using LibraryManagementSystem.Core.Models;
+using LibraryManagementSystem.Domain.Models.Entities;
 using LibraryManagementSystem.Domain.Models.Requests.Users;
 using LibraryManagementSystem.Domain.Models.Responses;
 using LibraryManagementSystem.Domain.Repositories;
@@ -6,6 +8,7 @@ using LibraryManagementSystem.Domain.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -42,12 +45,7 @@ namespace LibraryManagementSystem.Application.Service
 
         public async Task<AppUserResponse> Register(AppUserRegister model)
         {
-            var targetUser = await _userService.GetUserByUsername(model.UserName);
-
-            if (targetUser == null)
-            {
-                return null;
-            }
+            //var targetUser = await _userService.GetUserByUsername(model.UserName);
 
             var userExist = await _userManager.FindByNameAsync(model.UserName);
             if (userExist != null)
@@ -74,13 +72,29 @@ namespace LibraryManagementSystem.Application.Service
                     ExpiredOn = null,
                     Token = null,
                     Status = false,
-                    Message = "User creation failed! Please check user details and try again."
+                    Message = result.Errors.ToList().ToString()
                 };
             }
-            var justCreatedUser = await _userManager.FindByNameAsync(model.UserName);
             await _userManager.AddToRoleAsync(user, model.Role);
-            targetUser.AppUserId = justCreatedUser.Id;
-            await _userRepository.Update(targetUser);
+
+           /* if(targetUser != null)
+            {
+                targetUser.AppUserId = justCreatedUser.Id;
+                await _userRepository.Update(targetUser);
+            }*/
+       
+            var newUser = new AddUserRequest()
+            {
+                fName = model.UserName,
+                lName = "",
+                UserPosition = "Library User",
+                UserPrivilage = "",
+            };
+            var justCreatedAccount = await _userManager.FindByNameAsync(model.UserName);
+            var justCreatedUser = await _userService.AddNewUser(newUser);
+
+            justCreatedUser.AppUserId = justCreatedAccount.Id;
+            await _userRepository.Update(justCreatedUser);
 
             return new AppUserResponse()
             {
@@ -94,6 +108,13 @@ namespace LibraryManagementSystem.Application.Service
         public async Task<AppUserResponse> Login(AppUserLogin model)
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
+
+            var roles = new List<string>();
+            if (user != null)
+            {
+                var getRoles = await _userManager.GetRolesAsync(user);
+                roles = getRoles.ToList();
+            }
             if(user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
             
@@ -108,6 +129,19 @@ namespace LibraryManagementSystem.Application.Service
                     };
                 }
 
+                UserDetailResponse userData = new();
+
+                var getUserData = await _userRepository.GetByAppUserId(user.Id);
+
+                if(getUserData != null)
+                {
+                    userData = getUserData.ToUserResponse();
+                }
+                else
+                {
+                    userData = null;
+                }
+
                 return new AppUserResponse()
                 {
                     Token = accessToken.Token,
@@ -115,7 +149,9 @@ namespace LibraryManagementSystem.Application.Service
                     RefreshTokenExpiredOn = tokenCreated.ExpiryDate,
                     ExpiredOn = accessToken.ExpiredOn,
                     Status = true,
-                    Message = "Login success!"
+                    Message = "Login success!",
+                    User = userData,
+                    Roles = roles
                 };            
             }
 

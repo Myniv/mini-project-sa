@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi.csproj": {}
+    "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj": {
+    "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj",
+        "projectUniqueName": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj",
         "projectName": "LibraryManagementSystem.Application",
-        "projectPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\obj\\",
+        "projectPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj",
+        "packagesPath": "C:\\Users\\Mulyana\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mulyana\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,15 +26,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj": {
-                "projectPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj"
+              "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj": {
+                "projectPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj"
               }
             }
           }
@@ -47,8 +46,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -95,24 +95,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj": {
+    "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj",
+        "projectUniqueName": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj",
         "projectName": "LibraryManagementSystem.Domain",
-        "projectPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\obj\\",
+        "projectPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj",
+        "packagesPath": "C:\\Users\\Mulyana\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mulyana\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -121,7 +121,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -138,8 +137,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -182,24 +182,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Infrastructure\\LibraryManagementSystem.Infrastructure.csproj": {
+    "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Infrastructure\\LibraryManagementSystem.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Infrastructure\\LibraryManagementSystem.Infrastructure.csproj",
+        "projectUniqueName": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Infrastructure\\LibraryManagementSystem.Infrastructure.csproj",
         "projectName": "LibraryManagementSystem.Infrastructure",
-        "projectPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Infrastructure\\LibraryManagementSystem.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Infrastructure\\obj\\",
+        "projectPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Infrastructure\\LibraryManagementSystem.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Mulyana\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mulyana\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -208,18 +208,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj": {
-                "projectPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj"
+              "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj": {
+                "projectPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj"
               },
-              "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj": {
-                "projectPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj"
+              "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj": {
+                "projectPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Domain\\LibraryManagementSystem.Domain.csproj"
               }
             }
           }
@@ -232,8 +231,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -286,24 +286,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi.csproj": {
+    "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi.csproj",
+        "projectUniqueName": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi.csproj",
         "projectName": "LibraryManagementSystem.WebApi",
-        "projectPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\obj\\",
+        "projectPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi.csproj",
+        "packagesPath": "C:\\Users\\Mulyana\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mulyana\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -312,18 +312,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj": {
-                "projectPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj"
+              "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj": {
+                "projectPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Application\\LibraryManagementSystem.Application.csproj"
               },
-              "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Infrastructure\\LibraryManagementSystem.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\user\\source\\repos\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Infrastructure\\LibraryManagementSystem.Infrastructure.csproj"
+              "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Infrastructure\\LibraryManagementSystem.Infrastructure.csproj": {
+                "projectPath": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.Infrastructure\\LibraryManagementSystem.Infrastructure.csproj"
               }
             }
           }
@@ -336,8 +335,9 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
-        }
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -377,7 +377,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
