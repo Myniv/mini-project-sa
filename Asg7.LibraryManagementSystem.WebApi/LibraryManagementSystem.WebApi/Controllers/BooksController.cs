@@ -92,5 +92,16 @@ namespace LibraryManagementSystem.WebApi.Controllers
             }
             return Ok(response);
         }
+
+        [HttpPost("search2")]
+        public async Task<IActionResult> SearchBooksPaged2([FromQuery] SearchBookQuery2 query, [FromBody] PageRequest pageRequest)
+        {
+            var response = await _bookService.GetAllBookSearchPaged2(query, pageRequest);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
     }
 }

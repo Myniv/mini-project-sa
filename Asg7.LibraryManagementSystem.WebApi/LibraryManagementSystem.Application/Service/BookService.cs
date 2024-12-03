@@ -56,7 +56,7 @@ namespace LibraryManagementSystem.Application.Service
             book.IsDeleted = true;
 
             var deleteBook = await _bookRepository.Delete(book);
-            if(deleteBook == null)
+            if (deleteBook == null)
             {
                 return null;
             }
@@ -87,11 +87,87 @@ namespace LibraryManagementSystem.Application.Service
             book.Isbn = request.Isbn;
 
             var updateBook = await _bookRepository.Update(book);
-            if(updateBook == null)
+            if (updateBook == null)
             {
                 return null;
             }
             return updateBook;
+        }
+
+        public async Task<object> GetAllBookSearchPaged2(SearchBookQuery2 query, PageRequest pageRequest)
+        {
+            // Await the repository method to get the data
+            var books = await _bookRepository.GetAll();
+
+            // Ensure the result is IQueryable
+            var temp = books.AsQueryable();
+
+            temp = temp.Where(b => !b.IsDeleted);
+
+            if (!string.IsNullOrEmpty(query.Keyword))
+            {
+                temp = temp.Where(b => b.Title.ToLower().Contains(query.Keyword.ToLower()) ||
+                b.Author.ToLower().Contains(query.Keyword.ToLower()) || b.Isbn.ToLower().Contains(query.Keyword.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(query.Title))
+            {
+                temp = temp.Where(b => b.Title.ToLower().Contains(query.Title.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(query.Isbn))
+            {
+                temp = temp.Where(b => b.Isbn.ToLower().Contains(query.Isbn.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(query.Author))
+            {
+                temp = temp.Where(b => b.Author.ToLower().Contains(query.Author.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(query.Category))
+            {
+                temp = temp.Where(b => b.Category.ToLower().Contains(query.Category.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(query.Language))
+            {
+                temp = temp.Where(b => b.Language.ToLower().Contains(query.Language.ToLower()));
+            }
+
+
+            if (!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                switch (query.SortBy)
+                {
+                    case "author":
+                        temp = query.SortOrder.Equals("asc") ? temp.OrderBy(s => s.Author) : temp.OrderByDescending(s => s.Author);
+                        break;
+                    case "isbn":
+                        temp = query.SortOrder.Equals("asc") ? temp.OrderBy(s => s.Isbn) : temp.OrderByDescending(s => s.Isbn);
+                        break;
+                    default:
+                        temp = query.SortOrder.Equals("asc") ? temp.OrderBy(s => s.Title) : temp.OrderByDescending(s => s.Title);
+                        break;
+                }
+            }
+
+            var total = temp.Count();
+
+
+
+            // Apply pagination
+            var data = temp
+            //    .OrderBy(ob => ob.Title)
+               .Skip((pageRequest.PageNumber - 1) * pageRequest.PerPage)
+               .Take(pageRequest.PerPage)
+               .Select(s => s.ToBookSearchResponse(s.Stocks.Select(sm => sm.LocationIdNavigation.LocationName).ToArray()))
+               .ToList();
+            return new
+            {
+                Total = total,
+                Data = data
+            };
         }
 
         public async Task<List<BookSearchResponse>> GetAllBookSearchPaged(SearchBookQuery query, PageRequest pageRequest)
@@ -106,7 +182,7 @@ namespace LibraryManagementSystem.Application.Service
 
             if (isLanguage)
             {
-               books = books.Where(w => w.Language.ToLower() == query.Language.ToLower());
+                books = books.Where(w => w.Language.ToLower() == query.Language.ToLower());
             }
 
             // Only Title
@@ -154,13 +230,13 @@ namespace LibraryManagementSystem.Application.Service
             }
 
             // Author + Category
-            if(isAuthor && isCategory && !isTitle && !isIsbn)
+            if (isAuthor && isCategory && !isTitle && !isIsbn)
             {
-                if(query.AndOr2 == "or")
+                if (query.AndOr2 == "or")
                 {
-                    books = books.Where(w => 
-                    w.Author.ToLower().Contains(query.Author.ToLower()) 
-                    || 
+                    books = books.Where(w =>
+                    w.Author.ToLower().Contains(query.Author.ToLower())
+                    ||
                     w.Category.ToLower().Contains(query.Category.ToLower())
                     );
                 }
@@ -175,7 +251,7 @@ namespace LibraryManagementSystem.Application.Service
             }
 
             // Category + Isbn
-            if(isCategory && isIsbn)
+            if (isCategory && isIsbn)
             {
                 if (query.AndOr3 == "or")
                 {
@@ -420,23 +496,23 @@ namespace LibraryManagementSystem.Application.Service
                             }
                             else
                             {
-                                 books = books
-                                    .Where(w =>
-                                        w.Title
-                                        .ToLower()
-                                        .Contains(query.Title.ToLower())
-                                        &&
-                                        w.Author
-                                        .ToLower()
-                                        .Contains(query.Author.ToLower())
-                                        &&
-                                        w.Category
-                                        .ToLower()
-                                        .Contains(query.Category.ToLower())
+                                books = books
+                                   .Where(w =>
+                                       w.Title
+                                       .ToLower()
+                                       .Contains(query.Title.ToLower())
+                                       &&
+                                       w.Author
+                                       .ToLower()
+                                       .Contains(query.Author.ToLower())
+                                       &&
+                                       w.Category
+                                       .ToLower()
+                                       .Contains(query.Category.ToLower())
 
-                                    );
+                                   );
                             }
-                           
+
                         }
                     }
                     books = books
@@ -456,7 +532,7 @@ namespace LibraryManagementSystem.Application.Service
                 .OrderBy(ob => ob.Title)
                 .Skip((pageRequest.PageNumber - 1) * pageRequest.PerPage)
                 .Take(pageRequest.PerPage)
-                .Select(s=>s.ToBookSearchResponse(s.Stocks.Select(sm=>sm.LocationIdNavigation.LocationName).ToArray()))
+                .Select(s => s.ToBookSearchResponse(s.Stocks.Select(sm => sm.LocationIdNavigation.LocationName).ToArray()))
                 .ToListAsync();
         }
     }

@@ -22,5 +22,7 @@ namespace LibraryManagementSystem.Domain.Service
 
         // Search //
         Task<List<BookSearchResponse>> GetAllBookSearchPaged(SearchBookQuery query, PageRequest pageRequest);
+        Task<object> GetAllBookSearchPaged2(SearchBookQuery2 query, PageRequest pageRequest);
+
     }
 }
