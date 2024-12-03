@@ -1,12 +1,640 @@
 {
   "Version": 1,
-  "Hash": "vVqFQUKG64NWyAkcUGkQOK4Jx0TPY8UKOWJXKM6Gw8Q=",
+  "Hash": "caydg4UMZxsVp9raAaMbCqwOIasMC8CopRF1ML0sRgk=",
   "Source": "LibraryManagementSystem.WebApi",
   "BasePath": "_content/LibraryManagementSystem.WebApi",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "LibraryManagementSystem.WebApi\\wwwroot",
+      "Source": "LibraryManagementSystem.WebApi",
+      "ContentRoot": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\",
+      "BasePath": "_content/LibraryManagementSystem.WebApi",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\11a5c4b4-a921-4fb4-901b-df58e10f8951_Test pdf.pdf",
+      "SourceId": "LibraryManagementSystem.WebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\",
+      "BasePath": "_content/LibraryManagementSystem.WebApi",
+      "RelativePath": "uploads/11a5c4b4-a921-4fb4-901b-df58e10f8951_Test pdf#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2376emcwt7",
+      "Integrity": "Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\11a5c4b4-a921-4fb4-901b-df58e10f8951_Test pdf.pdf"
+    },
+    {
+      "Identity": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\24c91db5-0176-403e-aed5-c36f0eb9b828_testpdf.pdf",
+      "SourceId": "LibraryManagementSystem.WebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\",
+      "BasePath": "_content/LibraryManagementSystem.WebApi",
+      "RelativePath": "uploads/24c91db5-0176-403e-aed5-c36f0eb9b828_testpdf#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kd6r4oj0y7",
+      "Integrity": "+JJ66DGfcjnJBMLa7lJeJ1tb74b8HzJWmWHyi7thMRg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\24c91db5-0176-403e-aed5-c36f0eb9b828_testpdf.pdf"
+    },
+    {
+      "Identity": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\3b807930-5449-463f-96c9-84d01ecd6a64_Test pdf.pdf",
+      "SourceId": "LibraryManagementSystem.WebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\",
+      "BasePath": "_content/LibraryManagementSystem.WebApi",
+      "RelativePath": "uploads/3b807930-5449-463f-96c9-84d01ecd6a64_Test pdf#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2376emcwt7",
+      "Integrity": "Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\3b807930-5449-463f-96c9-84d01ecd6a64_Test pdf.pdf"
+    },
+    {
+      "Identity": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\44c2b009-ad64-42a9-9e59-2f832aad1898_Test pdf.pdf",
+      "SourceId": "LibraryManagementSystem.WebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\",
+      "BasePath": "_content/LibraryManagementSystem.WebApi",
+      "RelativePath": "uploads/44c2b009-ad64-42a9-9e59-2f832aad1898_Test pdf#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2376emcwt7",
+      "Integrity": "Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\44c2b009-ad64-42a9-9e59-2f832aad1898_Test pdf.pdf"
+    },
+    {
+      "Identity": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\606cf239-f618-4611-814f-e129bae8c509_Test pdf.pdf",
+      "SourceId": "LibraryManagementSystem.WebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\",
+      "BasePath": "_content/LibraryManagementSystem.WebApi",
+      "RelativePath": "uploads/606cf239-f618-4611-814f-e129bae8c509_Test pdf#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2376emcwt7",
+      "Integrity": "Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\606cf239-f618-4611-814f-e129bae8c509_Test pdf.pdf"
+    },
+    {
+      "Identity": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\d0d55caa-fd37-4966-bd1f-e23ce5551b41_Test pdf.pdf",
+      "SourceId": "LibraryManagementSystem.WebApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\",
+      "BasePath": "_content/LibraryManagementSystem.WebApi",
+      "RelativePath": "uploads/d0d55caa-fd37-4966-bd1f-e23ce5551b41_Test pdf#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2376emcwt7",
+      "Integrity": "Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\d0d55caa-fd37-4966-bd1f-e23ce5551b41_Test pdf.pdf"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "uploads/11a5c4b4-a921-4fb4-901b-df58e10f8951_Test pdf.2376emcwt7.pdf",
+      "AssetFile": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\11a5c4b4-a921-4fb4-901b-df58e10f8951_Test pdf.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31331"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Dec 2024 08:30:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2376emcwt7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/11a5c4b4-a921-4fb4-901b-df58e10f8951_Test pdf.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/11a5c4b4-a921-4fb4-901b-df58e10f8951_Test pdf.pdf",
+      "AssetFile": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\11a5c4b4-a921-4fb4-901b-df58e10f8951_Test pdf.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31331"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Dec 2024 08:30:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/24c91db5-0176-403e-aed5-c36f0eb9b828_testpdf.kd6r4oj0y7.pdf",
+      "AssetFile": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\24c91db5-0176-403e-aed5-c36f0eb9b828_testpdf.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "28986"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+JJ66DGfcjnJBMLa7lJeJ1tb74b8HzJWmWHyi7thMRg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Dec 2024 08:30:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kd6r4oj0y7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/24c91db5-0176-403e-aed5-c36f0eb9b828_testpdf.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-+JJ66DGfcjnJBMLa7lJeJ1tb74b8HzJWmWHyi7thMRg="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/24c91db5-0176-403e-aed5-c36f0eb9b828_testpdf.pdf",
+      "AssetFile": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\24c91db5-0176-403e-aed5-c36f0eb9b828_testpdf.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "28986"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+JJ66DGfcjnJBMLa7lJeJ1tb74b8HzJWmWHyi7thMRg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Dec 2024 08:30:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-+JJ66DGfcjnJBMLa7lJeJ1tb74b8HzJWmWHyi7thMRg="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/3b807930-5449-463f-96c9-84d01ecd6a64_Test pdf.2376emcwt7.pdf",
+      "AssetFile": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\3b807930-5449-463f-96c9-84d01ecd6a64_Test pdf.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31331"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Dec 2024 08:30:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2376emcwt7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/3b807930-5449-463f-96c9-84d01ecd6a64_Test pdf.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/3b807930-5449-463f-96c9-84d01ecd6a64_Test pdf.pdf",
+      "AssetFile": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\3b807930-5449-463f-96c9-84d01ecd6a64_Test pdf.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31331"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Dec 2024 08:30:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/44c2b009-ad64-42a9-9e59-2f832aad1898_Test pdf.2376emcwt7.pdf",
+      "AssetFile": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\44c2b009-ad64-42a9-9e59-2f832aad1898_Test pdf.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31331"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Dec 2024 08:30:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2376emcwt7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/44c2b009-ad64-42a9-9e59-2f832aad1898_Test pdf.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/44c2b009-ad64-42a9-9e59-2f832aad1898_Test pdf.pdf",
+      "AssetFile": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\44c2b009-ad64-42a9-9e59-2f832aad1898_Test pdf.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31331"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Dec 2024 08:30:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/606cf239-f618-4611-814f-e129bae8c509_Test pdf.2376emcwt7.pdf",
+      "AssetFile": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\606cf239-f618-4611-814f-e129bae8c509_Test pdf.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31331"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Dec 2024 08:30:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2376emcwt7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/606cf239-f618-4611-814f-e129bae8c509_Test pdf.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/606cf239-f618-4611-814f-e129bae8c509_Test pdf.pdf",
+      "AssetFile": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\606cf239-f618-4611-814f-e129bae8c509_Test pdf.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31331"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Dec 2024 08:30:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/d0d55caa-fd37-4966-bd1f-e23ce5551b41_Test pdf.2376emcwt7.pdf",
+      "AssetFile": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\d0d55caa-fd37-4966-bd1f-e23ce5551b41_Test pdf.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31331"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Dec 2024 08:30:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2376emcwt7"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/d0d55caa-fd37-4966-bd1f-e23ce5551b41_Test pdf.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/d0d55caa-fd37-4966-bd1f-e23ce5551b41_Test pdf.pdf",
+      "AssetFile": "D:\\Projects\\ASPDotNetProjects\\Solecode\\mini-project-sa\\Asg8.LibraryManagementSystem.WebApi\\LibraryManagementSystem.WebApi\\wwwroot\\uploads\\d0d55caa-fd37-4966-bd1f-e23ce5551b41_Test pdf.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31331"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Dec 2024 08:30:17 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Xg87pFER6ltCetW6oka9FEaH1tWFBTxIA6zCyVSmNb4="
+        }
+      ]
+    }
+  ]
 }
