@@ -34,11 +34,11 @@ namespace LibraryManagementSystem.Application.Service
         private readonly IWorkflowRepository _workflowRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public StockService(IStockRepository stockRepository, 
-            IBookRepository bookRepository, 
+        public StockService(IStockRepository stockRepository,
+            IBookRepository bookRepository,
             IUserRepository userRepository,
-            IBookUserTransactionRepository bookUserTransactionRepository, 
-            UserManager<AppUser> userManager, 
+            IBookUserTransactionRepository bookUserTransactionRepository,
+            UserManager<AppUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IEmailService emailService,
             IWorkflowRepository workflowRepository,
@@ -89,11 +89,11 @@ namespace LibraryManagementSystem.Application.Service
         {
             //find book
             var findBook = await _bookRepository.GetByIsbn(request.Isbn);
-            if(findBook == null)
+            if (findBook == null)
             {
                 return null;
             }
-           
+
             //find stock
             var findStock = await _stockRepository.Get(findBook.BookId, request.LocationId.GetValueOrDefault());
             if (findStock == null)
@@ -128,16 +128,16 @@ namespace LibraryManagementSystem.Application.Service
 
         public async Task<object> BookCheckOutUserInformation(BookCheckOutUserRequest request)
         {
-           // var user = await _userRepository.GetByAppUserId(request.AppUserId);
+            // var user = await _userRepository.GetByAppUserId(request.AppUserId);
             var user = await _userRepository.GetByLibraryCardNumber(request.LibraryCardNumber);
             var transactions = await _bookUserTransactionRepository.GetAll();
-            if(user == null)
+            if (user == null)
             {
                 return null;
             }
-            return user.ToLibrarianCheckOutUserResponse(transactions.Where(w=>w.UserId == user.UserId).Count());
+            return user.ToLibrarianCheckOutUserResponse(transactions.Where(w => w.UserId == user.UserId).Count());
         }
-         
+
         public async Task<object> BookCheckOutBookInformation(BookCheckOutBookRequest request)
         {
             var transactions = await _bookUserTransactionRepository.GetAll();
@@ -166,8 +166,8 @@ namespace LibraryManagementSystem.Application.Service
             //steps
             var wfId = wf.Where(w => w.WorkflowName == "Book Borrowing").Select(s => s.WorkflowId).FirstOrDefault();
             var currStepId = ws.Where(w => w.WorkflowId == wfId && w.RequiredRole == role_LU.Id).Select(s => s.WorkflowId).FirstOrDefault();
-            var nextStepId = ns.Where(w=>w.CurrentStepId == currStepId).Select(s=>s.NextStepId).FirstOrDefault();
-            var currAction = ns.Where(w=>w.CurrentStepId == currStepId).Select(s=>s.ConditionValue).FirstOrDefault();
+            var nextStepId = ns.Where(w => w.CurrentStepId == currStepId).Select(s => s.NextStepId).FirstOrDefault();
+            var currAction = ns.Where(w => w.CurrentStepId == currStepId).Select(s => s.ConditionValue).FirstOrDefault();
 
             // add to process
             Process newProcess = new()
@@ -243,7 +243,7 @@ namespace LibraryManagementSystem.Application.Service
             mailData.EmailToIds = emailTo;
             mailData.EmailCCIds = emailCC;
             mailData.EmailBody = emailBody;
-           
+
             var response = _emailService.SendMail(mailData);
             return response;
         }
@@ -261,7 +261,7 @@ namespace LibraryManagementSystem.Application.Service
 
 
             var role_LN = await _roleManager.FindByNameAsync("Librarian");
-            var role_LM = await _roleManager.FindByNameAsync("Library Manager");  
+            var role_LM = await _roleManager.FindByNameAsync("Library Manager");
 
             var br = await _workflowRepository.GetBookRequest(request.BookRequestId);
             if (br == null)
@@ -270,7 +270,7 @@ namespace LibraryManagementSystem.Application.Service
             }
 
             var process = await _workflowRepository.GetProcess(br.ProcessId);
-            if(process == null)
+            if (process == null)
             {
                 return null;
             }
@@ -399,9 +399,9 @@ namespace LibraryManagementSystem.Application.Service
             foreach (var c in ctg)
             {
                 var count = 0;
-                foreach(var b in bookList)
+                foreach (var b in bookList)
                 {
-                    if(c == b.Category)
+                    if (c == b.Category)
                     {
                         count++;
                     }
@@ -468,7 +468,7 @@ namespace LibraryManagementSystem.Application.Service
                 MostActiveUsers = listMa,
                 OverdueBooks = listBo,
                 BooksPerCategory = bookCategoryCounts,
-               ProcessToFollowUp = userProcess.Count()
+                ProcessToFollowUp = userProcess.Count()
             };
         }
 
@@ -480,13 +480,13 @@ namespace LibraryManagementSystem.Application.Service
             var role = await _userManager.GetRolesAsync(user);
 
             List<string> roleId = new();
-            foreach(var r in role)
+            foreach (var r in role)
             {
                 var appRole = await _roleManager.FindByNameAsync(r);
                 roleId.Add(appRole.Id);
             }
 
- 
+
             var ns = await _workflowRepository.GetAllNextStepRules();
             var wf = await _workflowRepository.GetAllWorkflow();
 
@@ -498,9 +498,10 @@ namespace LibraryManagementSystem.Application.Service
             List<object> result = new List<object>();
             foreach (var value in userProcess)
             {
-                var wfName = wf.Where(w=>w.WorkflowId == value.WorkflowId).Select(s=>s.WorkflowName).FirstOrDefault();
-                var stepName = ws.Where(w=>w.StepId == value.CurrentStepId).Select(s=>s.StepName).FirstOrDefault();
+                var wfName = wf.Where(w => w.WorkflowId == value.WorkflowId).Select(s => s.WorkflowName).FirstOrDefault();
+                var stepName = ws.Where(w => w.StepId == value.CurrentStepId).Select(s => s.StepName).FirstOrDefault();
                 var requester = await _userRepository.GetByAppUserId(value.RequesterId);
+                var booksrequest = await _workflowRepository.GetBookRequest(value.ProcessId);
                 result.Add(new
                 {
                     ProcessId = value.ProcessId,
@@ -509,6 +510,7 @@ namespace LibraryManagementSystem.Application.Service
                     RequestDate = value.RequestDate,
                     Status = value.Status,
                     CurrentStep = stepName,
+                    BookRequest = booksrequest,
                 });
             }
             return result;
