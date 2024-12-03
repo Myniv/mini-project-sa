@@ -129,7 +129,12 @@ namespace LibraryManagementSystem.Application.Service
                     RefreshTokenExpiredOn = tokenCreated.ExpiryDate,
                     ExpiredOn = accessToken.ExpiredOn,
                     Status = true,
-                    Message = "Login success!"
+                    Message = "Login success!",
+                    Role = roleArray,
+                    Name = user.UserName,
+                    Id = user.Id,
+                    Email = user.Email,
+                    User = user,
 
                 };
             }
@@ -140,11 +145,11 @@ namespace LibraryManagementSystem.Application.Service
                 ExpiredOn = null,
                 Status = false,
                 Message = "Credentials not valid!",
-                Role = roleArray,
-                Name = user.UserName,
-                Id = user.Id,
-                Email = user.Email,
-                User = user,
+                // Role = roleArray,
+                // Name = user.UserName,
+                // Id = user.Id,
+                // Email = user.Email,
+                // User = user,
             };
         }
         public async Task<AppUserResponse> Logout(string refreshToken)
