@@ -281,6 +281,21 @@ namespace CompanyWeb.WebApi.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "Administrator, HR Manager, Employee Supervisor")]
+        [HttpPost("search2")]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> SearchEmployee2([FromQuery] SearchEmployeeQuery2 query, [FromBody]PageRequest pageRequest)
+        {
+            var response = await _employeeService.SearchEmployee2(query, pageRequest);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
+
         /// <summary>
         /// Search employee by parameters
         /// </summary>
