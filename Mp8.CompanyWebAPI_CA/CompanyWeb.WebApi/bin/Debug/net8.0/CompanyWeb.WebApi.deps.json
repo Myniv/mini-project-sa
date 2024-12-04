@@ -1944,7 +1944,10 @@
           "Polybioz.HtmlRenderer.PdfSharp.Core": "1.0.0"
         },
         "runtime": {
-          "CompanyWeb.Application.dll": {}
+          "CompanyWeb.Application.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "CompanyWeb.Domain/1.0.0": {
@@ -1955,7 +1958,10 @@
           "Microsoft.EntityFrameworkCore": "8.0.8"
         },
         "runtime": {
-          "CompanyWeb.Domain.dll": {}
+          "CompanyWeb.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "CompanyWeb.Infrastructure/1.0.0": {
@@ -1969,7 +1975,10 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.4"
         },
         "runtime": {
-          "CompanyWeb.Infrastructure.dll": {}
+          "CompanyWeb.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

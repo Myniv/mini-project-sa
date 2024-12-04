@@ -69,7 +69,7 @@ namespace CompanyWeb.Infrastructure.Migrations
                         .HasColumnName("refreshtoken");
 
                     b.Property<DateTime?>("RefreshTokenExpiredOn")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("refreshtokenexpiredon");
 
                     b.Property<string>("SecurityStamp")
@@ -158,7 +158,7 @@ namespace CompanyWeb.Infrastructure.Migrations
                         .HasColumnName("appuserid");
 
                     b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("createdat");
 
                     b.Property<string>("DeactivateReason")
@@ -238,7 +238,7 @@ namespace CompanyWeb.Infrastructure.Migrations
                         .HasColumnName("ssn");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("updatedat");
 
                     b.HasKey("Empno");
@@ -402,7 +402,7 @@ namespace CompanyWeb.Infrastructure.Migrations
                         .HasColumnName("empno");
 
                     b.Property<DateTime?>("RequestDate")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("requestdate");
 
                     b.Property<string>("RequesterId")
@@ -487,7 +487,7 @@ namespace CompanyWeb.Infrastructure.Migrations
                         .HasColumnName("action");
 
                     b.Property<DateTime?>("ActionDate")
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("actiondate");
 
                     b.Property<string>("ActorId")
