@@ -18,9 +18,16 @@ namespace CompanyWeb.WebApi.Controllers
     public class EmployeesController : BaseController
     {
         private readonly IEmployeeService _employeeService;
-        public EmployeesController(IEmployeeService employeeService)
+        private readonly IWebHostEnvironment _environment;
+        private readonly ILogger<EmployeesController> _logger;
+
+
+        public EmployeesController(IEmployeeService employeeService, IWebHostEnvironment environment, ILogger<EmployeesController> logger)
         {
             _employeeService = employeeService;
+            _environment = environment;
+            _logger = logger;
+
         }
 
         /// <summary>
@@ -44,7 +51,7 @@ namespace CompanyWeb.WebApi.Controllers
         public async Task<IActionResult> GetEmployees([FromQuery] int pageNumber, int perPage)
         {
             var response = await _employeeService.GetEmployees(pageNumber, perPage);
-            if(response == null)
+            if (response == null)
             {
                 return null;
             }
@@ -100,7 +107,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Employee>> GetEmployee([FromRoute]int id)
+        public async Task<ActionResult<Employee>> GetEmployee([FromRoute] int id)
         {
             var action = await _employeeService.GetEmployee(id);
             if (action == null)
@@ -210,7 +217,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> PutEmployee([FromRoute]int id, [FromBody] UpdateEmployeeRequest request)
+        public async Task<IActionResult> PutEmployee([FromRoute] int id, [FromBody] UpdateEmployeeRequest request)
         {
             var action = await _employeeService.UpdateEmployee(id, request);
             if (action == null)
@@ -238,7 +245,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteEmployee([FromRoute]int id)
+        public async Task<IActionResult> DeleteEmployee([FromRoute] int id)
         {
             var action = await _employeeService.DeleteEmployee(id);
             if (action == null)
@@ -271,7 +278,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SearchEmployee([FromQuery] SearchEmployeeQuery query, [FromBody]PageRequest pageRequest)
+        public async Task<IActionResult> SearchEmployee([FromQuery] SearchEmployeeQuery query, [FromBody] PageRequest pageRequest)
         {
             var response = await _employeeService.SearchEmployee(query, pageRequest);
             if (response == null)
@@ -286,7 +293,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SearchEmployee2([FromQuery] SearchEmployeeQuery2 query, [FromBody]PageRequest pageRequest)
+        public async Task<IActionResult> SearchEmployee2([FromQuery] SearchEmployeeQuery2 query, [FromBody] PageRequest pageRequest)
         {
             var response = await _employeeService.SearchEmployee2(query, pageRequest);
             if (response == null)
@@ -317,7 +324,7 @@ namespace CompanyWeb.WebApi.Controllers
         [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeactivateEmployee([FromRoute] int id, [FromBody]DeactivateEmployeeRequest request)
+        public async Task<IActionResult> DeactivateEmployee([FromRoute] int id, [FromBody] DeactivateEmployeeRequest request)
         {
             var response = await _employeeService.DeactivateEmployee(id, request);
             if (response == null)
@@ -390,7 +397,7 @@ namespace CompanyWeb.WebApi.Controllers
 
         // EMPLOYEE REPROT PDF
         [HttpGet("report-pdf/{deptNo}")]
-        public async Task<IActionResult> GetEmployeeReportPDF([FromRoute]int deptNo)
+        public async Task<IActionResult> GetEmployeeReportPDF([FromRoute] int deptNo)
         {
             var fileName = "EmployeeReport.pdf";
             var response = await _employeeService.GenerateEmployeeReportPDF(deptNo);
@@ -408,5 +415,126 @@ namespace CompanyWeb.WebApi.Controllers
             }
             return Ok(response);
         }
+
+        // [HttpPost("upload")]
+        // public async Task<IActionResult> Upload(IFormFile file)
+        // {
+        //     try
+        //     {
+        //         long MaxFileSize = 2 * 1024 * 1024; // 2MB
+        //         string[] AllowedFileTypes = new[] {
+        //     "application/pdf",
+        //     "application/msword",
+        //     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        // };
+
+        //         // Log the received file details
+        //         _logger.LogInformation($"Received file: {file?.FileName}");
+        //         _logger.LogInformation($"Received file Content-Type: {file?.ContentType}");
+        //         _logger.LogInformation($"Received file size: {file?.Length}");
+
+        //         if (file == null || file.Length == 0)
+        //         {
+        //             _logger.LogInformation("Error: File is empty.");
+        //             return BadRequest("File is empty");
+        //         }
+
+        //         if (file.Length > MaxFileSize)
+        //         {
+        //             _logger.LogInformation("Error: File size exceeds the limit.");
+        //             return BadRequest("File size exceeds 2MB limit");
+        //         }
+
+        //         if (!AllowedFileTypes.Contains(file.ContentType))
+        //         {
+        //             _logger.LogInformation($"Error: Unsupported file type. Content-Type: {file.ContentType}");
+        //             return BadRequest("Only PDF and Word documents are allowed");
+        //         }
+
+        //         string uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads");
+
+        //         // Log the target upload folder
+        //         _logger.LogInformation($"Upload folder: {uploadsFolder}");
+
+        //         if (!Directory.Exists(uploadsFolder))
+        //         {
+        //             _logger.LogInformation("Uploads folder does not exist. Creating it...");
+        //             Directory.CreateDirectory(uploadsFolder);
+        //         }
+
+        //         string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+        //         string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+        //         // Log the final file path
+        //         _logger.LogInformation($"Saving file to: {filePath}");
+
+        //         // Save file to directory
+        //         using (var fileStream = new FileStream(filePath, FileMode.Create))
+        //         {
+        //             await file.CopyToAsync(fileStream);
+        //         }
+
+        //         _logger.LogInformation("File uploaded successfully.");
+        //         return Ok("File uploaded successfully");
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         _logger.LogInformation($"Internal server error: {ex.Message}");
+        //         return StatusCode(500, $"Internal server error: {ex.Message}");
+        //     }
+        // }
+
+        [HttpPost("upload")]
+        public async Task<IActionResult> Upload(IFormFile file)
+        {
+            try
+            {
+
+                long MaxFileSize = 2 * 1024 * 1024; // 2MB
+
+                string[] AllowedFileTypes = new[] {
+                    "application/pdf",
+                    "application/msword",
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    };
+
+                if (file == null || file.Length == 0)
+
+                    return BadRequest("File is empty");
+
+                if (file.Length > MaxFileSize)
+
+                    return BadRequest("File size exceeds 2MB limit");
+
+                if (!AllowedFileTypes.Contains(file.ContentType))
+
+                    return BadRequest("Only PDF and Word documents are allowed");
+
+                string uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads");
+
+                if (!Directory.Exists(uploadsFolder))
+
+                    Directory.CreateDirectory(uploadsFolder);
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                // Save file to directory
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+                return Ok("File uploaded succesfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+
+        }
+
+
     }
 }
