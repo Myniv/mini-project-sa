@@ -29,8 +29,8 @@ namespace CompanyWeb.Application.Services
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CompanyService( 
-            IEmployeeRepository employeeRepository, 
+        public CompanyService(
+            IEmployeeRepository employeeRepository,
             IDepartementRepository departementRepository,
             IProjectRepository projectRepository,
             IWorksOnRepository worksOnRepository,
@@ -75,19 +75,19 @@ namespace CompanyWeb.Application.Services
             var departements = await _departementRepository.GetAllDepartements();
 
             var result = (from value in employees
-                                join dept in departements on value.Deptno equals dept.Deptno
-                                where value.Sex == "Female" && dept.Mgrempno == value.Empno
-                                select value)
+                          join dept in departements on value.Deptno equals dept.Deptno
+                          where value.Sex == "Female" && dept.Mgrempno == value.Empno
+                          select value)
                                 .Select(s => new
                                 {
                                     Empno = s.Empno,
-                                    Empname = s.Fname + " "+ s.Lname,
+                                    Empname = s.Fname + " " + s.Lname,
                                     Deptno = s.Deptno,
                                     Deptname = s.DeptnoNavigation.Deptname,
                                     Sex = s.Sex
                                 })
                                 .ToList<object>();
-                                
+
             return result;
         }
 
@@ -102,7 +102,7 @@ namespace CompanyWeb.Application.Services
 
             var result = employees
                 .Except(emp)
-                .Select(s=>new
+                .Select(s => new
                 {
                     Empno = s.Empno,
                     Empname = s.Fname + " " + s.Lname,
@@ -180,8 +180,8 @@ namespace CompanyWeb.Application.Services
 
             var result = await (from value in employees
                                 join dept in departements on value.Empno equals dept.Mgrempno
-                      where value.Sex == "Female"
-                      select value).CountAsync();
+                                where value.Sex == "Female"
+                                select value).CountAsync();
             return result;
         }
 
@@ -273,9 +273,9 @@ namespace CompanyWeb.Application.Services
 
             var projGroup = from value in employees
                             join dept in departemetns on value.Empno equals dept.Mgrempno
-                           join proj in projects on dept.Deptno equals proj.Deptno
-                           where (value.Sex == "Female")
-                           group proj by value.Empno;
+                            join proj in projects on dept.Deptno equals proj.Deptno
+                            where (value.Sex == "Female")
+                            group proj by value.Empno;
 
             var result = await projGroup
                 .Select(s => new
@@ -367,7 +367,7 @@ namespace CompanyWeb.Application.Services
                                     Deptno = s.Key,
                                     EmpCount = s.Count(),
                                 })
-                                .Where(w=>w.EmpCount > 10)
+                                .Where(w => w.EmpCount > 10)
                                 .OrderBy(ob => ob.Deptno)
                                 .ToListAsync<object>();
 
@@ -446,7 +446,7 @@ namespace CompanyWeb.Application.Services
                     EmpName = s.Select(s => s.EmpnoNavigation.Fname + " " + s.EmpnoNavigation.Lname).FirstOrDefault(),
                     TotalHoursworked = s.Select(x => x.Hoursworked).Sum()
                 })
-                .OrderByDescending(ob=>ob.TotalHoursworked)
+                .OrderByDescending(ob => ob.TotalHoursworked)
                 .Take(5)
                 .ToList();
 
@@ -483,6 +483,7 @@ namespace CompanyWeb.Application.Services
                 var wfName = wf.Where(w => w.WorkflowId == value.WorkflowId).Select(s => s.WorkflowName).FirstOrDefault();
                 var stepName = ws.Where(w => w.StepId == value.CurrentStepId).Select(s => s.StepName).FirstOrDefault();
                 var requester = await _employeeRepository.GetEmployee(value.Empno);
+                var leaveReq = await _workflowRepository.GetLeaveRequest(value.ProcessId);
                 result.Add(new
                 {
                     ProcessId = value.ProcessId,
@@ -491,6 +492,7 @@ namespace CompanyWeb.Application.Services
                     RequestDate = value.RequestDate,
                     Status = value.Status,
                     CurrentStep = stepName,
+                    LeaveRequest = leaveReq,
                 });
             }
             return result;
@@ -502,6 +504,6 @@ namespace CompanyWeb.Application.Services
             return DateOnly.FromDateTime(DateTime.Now).Year;
         }
 
-    
+
     }
 }
