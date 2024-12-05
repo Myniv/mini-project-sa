@@ -484,10 +484,10 @@ namespace CompanyWeb.Application.Services
             var requiredRoleId = ws.Where(w => w.StepId == currStepId).Select(s => s.RequiredRole).FirstOrDefault();
             var requiredRole = await _roleManager.FindByIdAsync(requiredRoleId);
 
-            if (!roles.Any(a => a == requiredRole.Name))
-            {
-                return @"Unauthorized";
-            }
+            // if (!roles.Any(a => a == requiredRole.Name))
+            // {
+            //     return @"Unauthorized";
+            // }
 
 
             var nextStepId = 0;
