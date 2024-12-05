@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CompanyWeb.Domain.Models.Helpers;
 
 namespace CompanyWeb.Domain.Services
 {
@@ -79,6 +80,8 @@ namespace CompanyWeb.Domain.Services
         // Workflow Dashboard
         Task<List<object>> GetWorkflowDashboard();
         Task<object> GetWorkflowDashboardById(int processId);
+        Task<object> GetWorkflowDashboardWithPagination(string searchKeyword, PageRequest pageRequest);
+
 
     }
 }

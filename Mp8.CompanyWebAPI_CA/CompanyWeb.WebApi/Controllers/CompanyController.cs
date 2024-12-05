@@ -1,4 +1,5 @@
 ﻿using CompanyWeb.Application.Services;
+using CompanyWeb.Domain.Models.Helpers;
 using CompanyWeb.Domain.Models.Requests;
 using CompanyWeb.Domain.Services;
 using CompanyWeb.WebApi.Controllers.Base;
@@ -537,6 +538,40 @@ namespace CompanyWeb.WebApi.Controllers
             }
             return Ok(action);
         }
+
+        [HttpGet("workflow-dashboard-pagination")]
+        public async Task<IActionResult> GetWorkflowDashboardWithPagination(
+        [FromQuery] string? searchKeyword, // Optional search keyword
+        [FromQuery] int pageNumber = 1,   // Default to page 1
+        [FromQuery] int perPage = 10      // Default to 10 items per page
+    )
+        {
+            try
+            {
+                // Create PageRequest object
+                var pageRequest = new PageRequest
+                {
+                    PageNumber = pageNumber,
+                    PerPage = perPage
+                };
+
+                // Call service method
+                var result = await _companyService.GetWorkflowDashboardWithPagination(searchKeyword, pageRequest);
+
+                // Return the result
+                return Ok(result); // HTTP 200 with data
+            }
+            catch (Exception ex)
+            {
+                // Handle errors
+                return StatusCode(500, new
+                {
+                    Message = "An error occurred while processing your request.",
+                    Error = ex.Message
+                });
+            }
+        }
+
 
         // LEAVE REPORT PDF
         [HttpPost("leave-report-pdf")]
