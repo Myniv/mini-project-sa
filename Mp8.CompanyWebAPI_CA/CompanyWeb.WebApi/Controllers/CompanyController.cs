@@ -527,6 +527,16 @@ namespace CompanyWeb.WebApi.Controllers
             }
             return Ok(action);
         }
+        [HttpGet("workflow-dashboard/{id}")]
+        public async Task<IActionResult> GetWorkflowDashboardById([FromRoute] int id)
+        {
+            var action = await _companyService.GetWorkflowDashboardById(id);
+            if (action == null)
+            {
+                return NotFound();
+            }
+            return Ok(action);
+        }
 
         // LEAVE REPORT PDF
         [HttpPost("leave-report-pdf")]

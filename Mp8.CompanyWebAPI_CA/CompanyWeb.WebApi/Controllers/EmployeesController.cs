@@ -394,6 +394,19 @@ namespace CompanyWeb.WebApi.Controllers
             }
             return Ok(response);
         }
+        [HttpGet("leave/{id}")]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(Employee), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetLeaveRequestId([FromRoute] int id)
+        {
+            var response = await _employeeService.GetLeaveRequestId(id);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
 
         // EMPLOYEE REPROT PDF
         [HttpGet("report-pdf/{deptNo}")]

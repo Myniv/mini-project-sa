@@ -78,5 +78,7 @@ namespace CompanyWeb.Domain.Services
 
         // Workflow Dashboard
         Task<List<object>> GetWorkflowDashboard();
+        Task<object> GetWorkflowDashboardById(int processId);
+
     }
 }

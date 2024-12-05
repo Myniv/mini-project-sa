@@ -498,6 +498,91 @@ namespace CompanyWeb.Application.Services
             return result;
         }
 
+        public async Task<object> GetWorkflowDashboardById(int processId)
+        {
+            var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(userName);
+            var role = await _userManager.GetRolesAsync(user);
+            List<string> roleId = new();
+            foreach (var r in role)
+            {
+                var appRole = await _roleManager.FindByNameAsync(r);
+                roleId.Add(appRole.Id);
+            }
+            var ws = await _workflowRepository.GetAllWorkflowSequence();
+            var wf = await _workflowRepository.GetAllWorkflow();
+
+            var userStepId = ws.Where(w => roleId.Any(a => a == w.RequiredRole)).Select(s => s.StepId).FirstOrDefault();
+            var allProcess = await _workflowRepository.GetAllProcess();
+            var userProcess = allProcess.Where(w => w.CurrentStepId == userStepId).ToList();
+
+            // Find the specific process based on the provided processId
+            var value = userProcess.FirstOrDefault(w => w.ProcessId == processId);
+            if (value == null)
+            {
+                return null; // Or throw an exception if the process is not found
+            }
+
+            // Get related data
+            var wfName = wf.Where(w => w.WorkflowId == value.WorkflowId).Select(s => s.WorkflowName).FirstOrDefault();
+            var stepName = ws.Where(w => w.StepId == value.CurrentStepId).Select(s => s.StepName).FirstOrDefault();
+            var requester = await _employeeRepository.GetEmployee(value.Empno);
+            var leaveReq = await _workflowRepository.GetLeaveRequest(value.ProcessId);
+
+            // Return the specific result
+            return new
+            {
+                ProcessId = value.ProcessId,
+                Workflow = wfName,
+                Requester = requester.Fname + " " + requester.Lname,
+                RequestDate = value.RequestDate,
+                Status = value.Status,
+                CurrentStep = stepName,
+                LeaveRequest = leaveReq,
+            };
+        }
+
+
+        // //PaginationSearch
+        // public async Task<List<object>> GetWorkflowDashboardPaginationSearch()
+        // {
+        //     var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+        //     var user = await _userManager.FindByNameAsync(userName);
+        //     var role = await _userManager.GetRolesAsync(user);
+        //     List<string> roleId = new();
+        //     foreach (var r in role)
+        //     {
+        //         var appRole = await _roleManager.FindByNameAsync(r);
+        //         roleId.Add(appRole.Id);
+        //     }
+        //     var ws = await _workflowRepository.GetAllWorkflowSequence();
+        //     var wf = await _workflowRepository.GetAllWorkflow();
+
+        //     var userStepId = ws.Where(w => roleId.Any(a => a == w.RequiredRole)).Select(s => s.StepId).FirstOrDefault();
+        //     var allProcess = await _workflowRepository.GetAllProcess();
+        //     var userProcess = allProcess.Where(w => w.CurrentStepId == userStepId).ToList();
+
+        //     List<object> result = new List<object>();
+        //     foreach (var value in userProcess)
+        //     {
+        //         var wfName = wf.Where(w => w.WorkflowId == value.WorkflowId).Select(s => s.WorkflowName).FirstOrDefault();
+        //         var stepName = ws.Where(w => w.StepId == value.CurrentStepId).Select(s => s.StepName).FirstOrDefault();
+        //         var requester = await _employeeRepository.GetEmployee(value.Empno);
+        //         var leaveReq = await _workflowRepository.GetLeaveRequest(value.ProcessId);
+        //         result.Add(new
+        //         {
+        //             ProcessId = value.ProcessId,
+        //             Workflow = wfName,
+        //             Requester = requester.Fname + " " + requester.Lname,
+        //             RequestDate = value.RequestDate,
+        //             Status = value.Status,
+        //             CurrentStep = stepName,
+        //             LeaveRequest = leaveReq,
+        //         });
+        //     }
+        //     return result;
+        // }
+
         //extra
         static int GetYearNow()
         {

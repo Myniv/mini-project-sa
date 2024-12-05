@@ -388,6 +388,10 @@ namespace CompanyWeb.Application.Services
         {
             return await _workflowRepository.GetAllLeaveRequest();
         }
+        public async Task<object> GetLeaveRequestId(int id)
+        {
+            return await _workflowRepository.GetLeaveRequest(id);
+        }
 
         public async Task<object> GetEmployee(int id)
         {

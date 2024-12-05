@@ -38,6 +38,8 @@ namespace CompanyWeb.Domain.Services
         Task<object> LeaveRequest(EmployeeLeaveRequest request);
         Task<object> LeaveApproval(EmployeeLeaveApprovalRequest request);
         Task<IEnumerable<LeaveRequest>> GetAllLeaveRequest();
+        Task<object> GetLeaveRequestId(int id);
+
 
         // Report
         Task<byte[]> GenerateEmployeeReportPDF(int deptNo);
