@@ -529,10 +529,10 @@ namespace CompanyWeb.Application.Services
             //add to workflow action
             WorkflowAction newWa = new()
             {
-                Action = currAction,
+                Action = request.Approval,
                 ActionDate = DateTime.UtcNow,
                 ActorId = user.Id,
-                Comments = currAction,
+                Comments = request.Notes,
                 StepId = currStepId,
                 ProcessId = ju_process.ProcessId,
             };
