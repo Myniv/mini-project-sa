@@ -557,84 +557,84 @@ namespace CompanyWeb.Application.Services
         }
 
 
-        // // //PaginationSearch
-        // public async Task<object> GetWorkflowDashboardWithPagination(string searchKeyword, PageRequest pageRequest)
-        // {
-        //     // Get user details
-        //     var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
-        //     var user = await _userManager.FindByNameAsync(userName);
-        //     var role = await _userManager.GetRolesAsync(user);
+        // //PaginationSearch
+        public async Task<object> GetWorkflowDashboardWithPagination(string searchKeyword, PageRequest pageRequest)
+        {
+            // Get user details
+            var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(userName);
+            var role = await _userManager.GetRolesAsync(user);
 
-        //     // Collect role IDs
-        //     List<string> roleId = new();
-        //     foreach (var r in role)
-        //     {
-        //         var appRole = await _roleManager.FindByNameAsync(r);
-        //         roleId.Add(appRole.Id);
-        //     }
+            // Collect role IDs
+            List<string> roleId = new();
+            foreach (var r in role)
+            {
+                var appRole = await _roleManager.FindByNameAsync(r);
+                roleId.Add(appRole.Id);
+            }
 
-        //     // Get workflow and process data
-        //     var ws = await _workflowRepository.GetAllWorkflowSequence();
-        //     var wf = await _workflowRepository.GetAllWorkflow();
-        //     var userStepId = ws.Where(w => roleId.Any(a => a == w.RequiredRole))
-        //                        .Select(s => s.StepId)
-        //                        .FirstOrDefault();
-        //     var allProcess = await _workflowRepository.GetAllProcess();
+            // Get workflow and process data
+            var ws = await _workflowRepository.GetAllWorkflowSequence();
+            var wf = await _workflowRepository.GetAllWorkflow();
+            var userStepId = ws.Where(w => roleId.Any(a => a == w.RequiredRole))
+                               .Select(s => s.StepId)
+                               .FirstOrDefault();
+            var allProcess = await _workflowRepository.GetAllProcess();
 
-        //     // Filter processes for the user's step
-        //     var userProcess = allProcess.Where(w => w.CurrentStepId == userStepId);
+            // Filter processes for the user's step
+            var userProcess = allProcess.Where(w => w.CurrentStepId == userStepId);
 
-        //     // Search functionality
-        //     if (!string.IsNullOrEmpty(searchKeyword))
-        //     {
-        //         userProcess = userProcess.Where(p =>
-        //             p.ProcessId.ToString().Contains(searchKeyword, StringComparison.OrdinalIgnoreCase) ||
-        //             wf.Any(w => w.WorkflowId == p.WorkflowId &&
-        //                         w.WorkflowName.Contains(searchKeyword, StringComparison.OrdinalIgnoreCase)) ||
-        //             ws.Any(s => s.StepId == p.CurrentStepId &&
-        //                         s.StepName.Contains(searchKeyword, StringComparison.OrdinalIgnoreCase))
-        //         );
-        //     }
+            // Search functionality
+            if (!string.IsNullOrEmpty(searchKeyword))
+            {
+                userProcess = userProcess.Where(p =>
+                    p.ProcessId.ToString().Contains(searchKeyword, StringComparison.OrdinalIgnoreCase) ||
+                    wf.Any(w => w.WorkflowId == p.WorkflowId &&
+                                w.WorkflowName.Contains(searchKeyword, StringComparison.OrdinalIgnoreCase)) ||
+                    ws.Any(s => s.StepId == p.CurrentStepId &&
+                                s.StepName.Contains(searchKeyword, StringComparison.OrdinalIgnoreCase))
+                );
+            }
 
-        //     // Materialize query into memory
-        //     var userProcessList = userProcess.ToList();
+            // Materialize query into memory
+            var userProcessList = userProcess.ToList();
 
-        //     // Asynchronously map data into result objects
-        //     var result = await Task.WhenAll(userProcessList.Select(async value =>
-        //     {
-        //         string? wfName = wf.Where(w => w.WorkflowId == value.WorkflowId).Select(s => s.WorkflowName).FirstOrDefault();
-        //         var stepName = ws.Where(w => w.StepId == value.CurrentStepId).Select(s => s.StepName).FirstOrDefault();
-        //         var requester = await _employeeRepository.GetEmployee(value.Empno);
-        //         var leaveReq = await _workflowRepository.GetLeaveRequest(value.ProcessId);
+            // Asynchronously map data into result objects
+            var result = await Task.WhenAll(userProcessList.Select(async value =>
+            {
+                string? wfName = wf.Where(w => w.WorkflowId == value.WorkflowId).Select(s => s.WorkflowName).FirstOrDefault();
+                var stepName = ws.Where(w => w.StepId == value.CurrentStepId).Select(s => s.StepName).FirstOrDefault();
+                var requester = await _employeeRepository.GetEmployee(value.Empno);
+                var leaveReq = await _workflowRepository.GetLeaveRequest(value.ProcessId);
 
-        //         return new
-        //         {
-        //             ProcessId = value.ProcessId,
-        //             Workflow = wfName,
-        //             Requester = $"{requester.Fname} {requester.Lname}",
-        //             RequestDate = value.RequestDate,
-        //             Status = value.Status,
-        //             CurrentStep = stepName,
-        //             LeaveRequest = leaveReq,
-        //         };
-        //     }));
+                return new
+                {
+                    ProcessId = value.ProcessId,
+                    Workflow = wfName,
+                    Requester = $"{requester.Fname} {requester.Lname}",
+                    RequestDate = value.RequestDate,
+                    Status = value.Status,
+                    CurrentStep = stepName,
+                    LeaveRequest = leaveReq,
+                };
+            }));
 
-        //     // Total count
-        //     var total = result.Length;
+            // Total count
+            var total = result.Length;
 
-        //     // Apply pagination
-        //     var paginatedData = result
-        //         .Skip((pageRequest.PageNumber - 1) * pageRequest.PerPage)
-        //         .Take(pageRequest.PerPage)
-        //         .ToList();
+            // Apply pagination
+            var paginatedData = result
+                .Skip((pageRequest.PageNumber - 1) * pageRequest.PerPage)
+                .Take(pageRequest.PerPage)
+                .ToList();
 
-        //     // Return total and paginated data
-        //     return new
-        //     {
-        //         Total = total,
-        //         Data = paginatedData
-        //     };
-        // }
+            // Return total and paginated data
+            return new
+            {
+                Total = total,
+                Data = paginatedData
+            };
+        }
 
 
         //extra
