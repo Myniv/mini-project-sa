@@ -503,11 +503,13 @@ namespace CompanyWeb.WebApi.Controllers
             try
             {
 
-                long MaxFileSize = 2 * 1024 * 1024; // 2MB
+                long MaxFileSize = 5 * 1024 * 1024; // 5MB
 
                 string[] AllowedFileTypes = new[] {
                     "application/pdf",
                     "application/msword",
+                    "image/jpeg",
+                    "image/jpg",
                     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     };
 
@@ -517,11 +519,11 @@ namespace CompanyWeb.WebApi.Controllers
 
                 if (file.Length > MaxFileSize)
 
-                    return BadRequest("File size exceeds 2MB limit");
+                    return BadRequest("File size exceeds 5MB limit");
 
                 if (!AllowedFileTypes.Contains(file.ContentType))
 
-                    return BadRequest("Only PDF and Word documents are allowed");
+                    return BadRequest("Only PDF, Word, Jpg and Jpeg documents are allowed");
 
                 string uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads");
 
