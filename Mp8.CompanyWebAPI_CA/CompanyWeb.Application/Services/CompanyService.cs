@@ -558,83 +558,136 @@ namespace CompanyWeb.Application.Services
 
 
         // //PaginationSearch
-        public async Task<object> GetWorkflowDashboardWithPagination(SearchLeaveRequestQuery searchKeyword, PageRequest pageRequest)
+        public async Task<object> GetWorkflowDashboardWithPagination(SearchLeaveRequestQuery query, PageRequest pageRequest)
         {
-            // Get user details
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
             var user = await _userManager.FindByNameAsync(userName);
             var role = await _userManager.GetRolesAsync(user);
-
-            // Collect role IDs
             List<string> roleId = new();
             foreach (var r in role)
             {
                 var appRole = await _roleManager.FindByNameAsync(r);
                 roleId.Add(appRole.Id);
             }
-
-            // Get workflow and process data
             var ws = await _workflowRepository.GetAllWorkflowSequence();
             var wf = await _workflowRepository.GetAllWorkflow();
-            var userStepId = ws.Where(w => roleId.Any(a => a == w.RequiredRole))
-                               .Select(s => s.StepId)
-                               .FirstOrDefault();
+
+            var userStepId = ws.Where(w => roleId.Any(a => a == w.RequiredRole)).Select(s => s.StepId).FirstOrDefault();
             var allProcess = await _workflowRepository.GetAllProcess();
+            var userProcess = allProcess.Where(w => w.CurrentStepId == userStepId).ToList();
 
-            // Filter processes for the user's step
-            var userProcess = allProcess.Where(w => w.CurrentStepId == userStepId);
-
-            // Search functionality
-            if (!string.IsNullOrEmpty(searchKeyword.ToString()))
+            List<object> result = new List<object>();
+            foreach (var value in userProcess)
             {
-                userProcess = userProcess.Where(p =>
-                    p.ProcessId.ToString().Contains(searchKeyword.ToString(), StringComparison.OrdinalIgnoreCase) ||
-                    wf.Any(w => w.WorkflowId == p.WorkflowId &&
-                                w.WorkflowName.Contains(searchKeyword.ToString(), StringComparison.OrdinalIgnoreCase)) ||
-                    ws.Any(s => s.StepId == p.CurrentStepId &&
-                                s.StepName.Contains(searchKeyword.ToString(), StringComparison.OrdinalIgnoreCase))
-                );
-            }
-
-            // Materialize query into memory
-            var userProcessList = userProcess.ToList();
-
-            // Asynchronously map data into result objects
-            var result = await Task.WhenAll(userProcessList.Select(async value =>
-            {
-                string? wfName = wf.Where(w => w.WorkflowId == value.WorkflowId).Select(s => s.WorkflowName).FirstOrDefault();
+                var wfName = wf.Where(w => w.WorkflowId == value.WorkflowId).Select(s => s.WorkflowName).FirstOrDefault();
                 var stepName = ws.Where(w => w.StepId == value.CurrentStepId).Select(s => s.StepName).FirstOrDefault();
                 var requester = await _employeeRepository.GetEmployee(value.Empno);
                 var leaveReq = await _workflowRepository.GetLeaveRequest(value.ProcessId);
-
-                return new
+                result.Add(new
                 {
                     ProcessId = value.ProcessId,
                     Workflow = wfName,
-                    Requester = $"{requester.Fname} {requester.Lname}",
+                    Requester = requester.Fname + " " + requester.Lname,
                     RequestDate = value.RequestDate,
                     Status = value.Status,
                     CurrentStep = stepName,
                     LeaveRequest = leaveReq,
-                };
-            }));
+                });
+            }
 
-            // Total count
-            var total = result.Length;
+            // if (!string.IsNullOrEmpty(query.KeyWord))
+            // {
+            //     result = result.Where(b => b.Requester.ToLower().Contains(query.KeyWord.ToLower()));
+            // }
 
-            // Apply pagination
-            var paginatedData = result
-                .Skip((pageRequest.PageNumber - 1) * pageRequest.PerPage)
+            var total = result.Count;
+            var data = result.Skip((pageRequest.PageNumber - 1) * pageRequest.PerPage)
                 .Take(pageRequest.PerPage)
                 .ToList();
 
-            // Return total and paginated data
             return new
             {
                 Total = total,
-                Data = paginatedData
+                Data = data
             };
         }
+        // public async Task<object> GetWorkflowDashboardWithPagination(SearchLeaveRequestQuery searchKeyword, PageRequest pageRequest)
+        // {
+        //     // Get user details
+        //     var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
+        //     var user = await _userManager.FindByNameAsync(userName);
+        //     var role = await _userManager.GetRolesAsync(user);
+
+        //     // Collect role IDs
+        //     List<string> roleId = new();
+        //     foreach (var r in role)
+        //     {
+        //         var appRole = await _roleManager.FindByNameAsync(r);
+        //         roleId.Add(appRole.Id);
+        //     }
+
+        //     // Get workflow and process data
+        //     var ws = await _workflowRepository.GetAllWorkflowSequence();
+        //     var wf = await _workflowRepository.GetAllWorkflow();
+        //     var userStepId = ws.Where(w => roleId.Any(a => a == w.RequiredRole))
+        //                        .Select(s => s.StepId)
+        //                        .FirstOrDefault();
+        //     var allProcess = await _workflowRepository.GetAllProcess();
+
+        //     // Filter processes for the user's step
+        //     var userProcess = allProcess.Where(w => w.CurrentStepId == userStepId);
+
+        //     // Search functionality
+        //     if (!string.IsNullOrEmpty(searchKeyword.ToString()))
+        //     {
+        //         userProcess = userProcess.Where(p =>
+        //             p.ProcessId.ToString().Contains(searchKeyword.ToString(), StringComparison.OrdinalIgnoreCase) ||
+        //             wf.Any(w => w.WorkflowId == p.WorkflowId &&
+        //                         w.WorkflowName.Contains(searchKeyword.ToString(), StringComparison.OrdinalIgnoreCase)) ||
+        //             ws.Any(s => s.StepId == p.CurrentStepId &&
+        //                         s.StepName.Contains(searchKeyword.ToString(), StringComparison.OrdinalIgnoreCase))
+        //         );
+        //     }
+
+        //     // Materialize query into memory
+        //     var userProcessList = userProcess.ToList();
+
+        //     // Asynchronously map data into result objects
+        //     var result = await Task.WhenAll(userProcessList.Select(async value =>
+        //     {
+        //         string? wfName = wf.Where(w => w.WorkflowId == value.WorkflowId).Select(s => s.WorkflowName).FirstOrDefault();
+        //         var stepName = ws.Where(w => w.StepId == value.CurrentStepId).Select(s => s.StepName).FirstOrDefault();
+        //         var requester = await _employeeRepository.GetEmployee(value.Empno);
+        //         var leaveReq = await _workflowRepository.GetLeaveRequest(value.ProcessId);
+
+        //         return new
+        //         {
+        //             ProcessId = value.ProcessId,
+        //             Workflow = wfName,
+        //             Requester = $"{requester.Fname} {requester.Lname}",
+        //             RequestDate = value.RequestDate,
+        //             Status = value.Status,
+        //             CurrentStep = stepName,
+        //             LeaveRequest = leaveReq,
+        //         };
+        //     }));
+
+        //     // Total count
+        //     var total = result.Length;
+
+        //     // Apply pagination
+        //     var paginatedData = result
+        //         .Skip((pageRequest.PageNumber - 1) * pageRequest.PerPage)
+        //         .Take(pageRequest.PerPage)
+        //         .ToList();
+
+        //     // Return total and paginated data
+        //     return new
+        //     {
+        //         Total = total,
+        //         Data = paginatedData
+        //     };
+        // }
 
 
         //extra
