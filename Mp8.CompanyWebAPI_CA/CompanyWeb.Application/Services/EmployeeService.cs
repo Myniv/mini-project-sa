@@ -516,10 +516,25 @@ namespace CompanyWeb.Application.Services
                    .FirstOrDefault();
             }
 
+            var req = "Approved";
+            if (request.Approval == "Approved" && roles[0] == "Employee Supervisor")
+            {
+                req = "Reviewed By HR Manager";
+                process.Status = req;
+            }
+            else if (request.Approval == "Approved" && roles[0] == "HR Manager")
+            {
+                req = "Approved";
+                process.Status = req;
+            }
+            else
+            {
+                process.Status = request.Approval;
+            }
+
 
             // update process
             process.CurrentStepId = nextStepId;
-            process.Status = request.Approval;
             var ju_process = await _workflowRepository.UpdateProcess(process);
             if (ju_process == null)
             {
