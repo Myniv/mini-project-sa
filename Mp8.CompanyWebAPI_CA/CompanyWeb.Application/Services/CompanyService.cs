@@ -558,7 +558,7 @@ namespace CompanyWeb.Application.Services
 
 
         // //PaginationSearch
-        public async Task<object> GetWorkflowDashboardWithPagination(string searchKeyword, PageRequest pageRequest)
+        public async Task<object> GetWorkflowDashboardWithPagination(SearchLeaveRequestQuery searchKeyword, PageRequest pageRequest)
         {
             // Get user details
             var userName = _httpContextAccessor.HttpContext.User.Identity.Name;
@@ -585,14 +585,14 @@ namespace CompanyWeb.Application.Services
             var userProcess = allProcess.Where(w => w.CurrentStepId == userStepId);
 
             // Search functionality
-            if (!string.IsNullOrEmpty(searchKeyword))
+            if (!string.IsNullOrEmpty(searchKeyword.ToString()))
             {
                 userProcess = userProcess.Where(p =>
-                    p.ProcessId.ToString().Contains(searchKeyword, StringComparison.OrdinalIgnoreCase) ||
+                    p.ProcessId.ToString().Contains(searchKeyword.ToString(), StringComparison.OrdinalIgnoreCase) ||
                     wf.Any(w => w.WorkflowId == p.WorkflowId &&
-                                w.WorkflowName.Contains(searchKeyword, StringComparison.OrdinalIgnoreCase)) ||
+                                w.WorkflowName.Contains(searchKeyword.ToString(), StringComparison.OrdinalIgnoreCase)) ||
                     ws.Any(s => s.StepId == p.CurrentStepId &&
-                                s.StepName.Contains(searchKeyword, StringComparison.OrdinalIgnoreCase))
+                                s.StepName.Contains(searchKeyword.ToString(), StringComparison.OrdinalIgnoreCase))
                 );
             }
 

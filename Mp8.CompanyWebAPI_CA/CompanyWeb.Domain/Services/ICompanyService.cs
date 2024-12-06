@@ -80,7 +80,7 @@ namespace CompanyWeb.Domain.Services
         // Workflow Dashboard
         Task<List<object>> GetWorkflowDashboard();
         Task<object> GetWorkflowDashboardById(int processId);
-        Task<object> GetWorkflowDashboardWithPagination(string searchKeyword, PageRequest pageRequest);
+        Task<object> GetWorkflowDashboardWithPagination(SearchLeaveRequestQuery query, PageRequest pageRequest);
 
 
     }
