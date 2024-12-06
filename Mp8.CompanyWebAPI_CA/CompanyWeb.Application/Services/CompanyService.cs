@@ -6,6 +6,7 @@ using CompanyWeb.Domain.Models.Options;
 using CompanyWeb.Domain.Models.Requests;
 using CompanyWeb.Domain.Repositories;
 using CompanyWeb.Domain.Services;
+using LibraryManagementSystem.Domain.Models.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -576,29 +577,41 @@ namespace CompanyWeb.Application.Services
             var allProcess = await _workflowRepository.GetAllProcess();
             var userProcess = allProcess.Where(w => w.CurrentStepId == userStepId).ToList();
 
-            List<object> result = new List<object>();
+            List<WorkflowResultPagination> result = new List<WorkflowResultPagination>();
             foreach (var value in userProcess)
             {
                 var wfName = wf.Where(w => w.WorkflowId == value.WorkflowId).Select(s => s.WorkflowName).FirstOrDefault();
                 var stepName = ws.Where(w => w.StepId == value.CurrentStepId).Select(s => s.StepName).FirstOrDefault();
                 var requester = await _employeeRepository.GetEmployee(value.Empno);
                 var leaveReq = await _workflowRepository.GetLeaveRequest(value.ProcessId);
-                result.Add(new
+                result.Add(new WorkflowResultPagination
                 {
                     ProcessId = value.ProcessId,
-                    Workflow = wfName,
                     Requester = requester.Fname + " " + requester.Lname,
                     RequestDate = value.RequestDate,
+                    LeaveType = leaveReq.LeaveType,
+                    LeaveReason = leaveReq.LeaveReason,
+                    StartDate = leaveReq.StartDate,
+                    EndDate = leaveReq.EndDate,
                     Status = value.Status,
-                    CurrentStep = stepName,
-                    LeaveRequest = leaveReq,
+                    // CurrentStep = stepName,
+                    // LeaveRequest = leaveReq,
                 });
             }
 
-            // if (!string.IsNullOrEmpty(query.KeyWord))
-            // {
-            //     result = result.Where(b => b.Requester.ToLower().Contains(query.KeyWord.ToLower()));
-            // }
+            if (!string.IsNullOrEmpty(query.KeyWord))
+            {
+                result = result.Where(r =>
+                    (r.Requester != null && r.Requester.ToLower().Contains(query.KeyWord.ToLower())) ||
+                    (r.LeaveType != null && r.LeaveType.ToLower().Contains(query.KeyWord.ToLower())) ||
+                    (r.LeaveReason != null && r.LeaveReason.ToLower().Contains(query.KeyWord.ToLower())) ||
+                    (r.Status != null && r.Status.ToLower().Contains(query.KeyWord.ToLower())) ||
+                    (r.RequestDate.HasValue && r.RequestDate.Value.ToString("yyyy-MM-dd").Contains(query.KeyWord)) ||
+                    (r.StartDate.HasValue && r.StartDate.Value.ToString("yyyy-MM-dd").Contains(query.KeyWord)) ||
+                    (r.EndDate.HasValue && r.EndDate.Value.ToString("yyyy-MM-dd").Contains(query.KeyWord))
+                ).ToList();
+            }
+
 
             var total = result.Count;
             var data = result.Skip((pageRequest.PageNumber - 1) * pageRequest.PerPage)
