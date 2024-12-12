@@ -73,7 +73,7 @@ namespace CompanyWeb.WebApi.Controllers
             return Ok(workson);
         }
 
-        [Authorize(Roles = "Administrator, Employee Supervisor, HR Manager, Employee")]
+        // [Authorize(Roles = "Administrator, Employee Supervisor, HR Manager, Employee")]
         [HttpGet("all")]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Workson), StatusCodes.Status404NotFound)]
