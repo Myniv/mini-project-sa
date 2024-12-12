@@ -311,7 +311,7 @@ namespace CompanyWeb.Application.Services
             string htmlcontent = String.Empty;
             var document = new PdfDocument();
             var config = new PdfGenerateConfig();
-            config.PageOrientation = PageOrientation.Landscape;
+            config.PageOrientation = PageOrientation.Portrait;
             config.SetMargins(8);
             config.PageSize = PageSize.A4;
             string cssStr = File.ReadAllText(@"./style.css");
