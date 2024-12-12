@@ -1,15 +1,19 @@
 ﻿body {
+  font-size: 10px; /* Adjust this value for desired font size */
 }
 
 table {
-    border: 1px solid #ccc;
-    width: 100%;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 8px; /* Set font size for table content */
 }
-tr{
-    border: 1px solid #ccc;
+
+tr {
+  border: 1px solid #ccc;
 }
 
 td {
-    border: 1px solid #ccc;
-    padding: 8px
+  border: 1px solid #ccc;
+  padding: 5px;
+  font-size: 8px; /* You can adjust this size if needed */
 }

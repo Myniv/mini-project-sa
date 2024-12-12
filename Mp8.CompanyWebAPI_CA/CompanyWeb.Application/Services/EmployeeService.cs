@@ -196,8 +196,8 @@ namespace CompanyWeb.Application.Services
 
             var document = new PdfDocument();
             var config = new PdfGenerateConfig();
-            config.PageOrientation = PageOrientation.Landscape;
-            config.SetMargins(8);
+            config.PageOrientation = PageOrientation.Portrait;
+            config.SetMargins(1);
             config.PageSize = PageSize.A4;
             string cssStr = File.ReadAllText(@"./style.css");
             CssData css = PdfGenerator.ParseStyleSheet(cssStr);
@@ -206,10 +206,10 @@ namespace CompanyWeb.Application.Services
             var employeeFiltered = employees.Where(w => w.Deptno == deptNo);
             var totalPage = 0;
             var page = 1;
-            var perPage = 2;
+            var perPage = 19;
             if (employeeFiltered.Count() > perPage)
             {
-                totalPage = employeeFiltered.Count() / perPage;
+                totalPage = (int)Math.Ceiling((double)employeeFiltered.Count() / perPage);
             }
             else
             {
@@ -220,7 +220,7 @@ namespace CompanyWeb.Application.Services
             for (int i = 0; i < totalPage; i++)
             {
                 string htmlcontent = String.Empty;
-                var paged = employeeFiltered.Skip((page - 1) * perPage).Take(perPage).ToList();
+                var paged = employeeFiltered.Skip(i * perPage).Take(perPage).ToList();
                 htmlcontent += "</table>";
                 htmlcontent += "<h3>Employees Information</h3>";
                 htmlcontent += "<table>";
