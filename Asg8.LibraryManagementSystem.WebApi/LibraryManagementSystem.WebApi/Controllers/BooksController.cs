@@ -109,7 +109,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
         }
 
         // POST api/Books/signout-report
-        //[Authorize(Roles = "Librarian, Library Manager")]
+        // [Authorize(Roles = "Librarian, Library Manager")]
         [HttpPost("signout-report")]
         public async Task<IActionResult> SignOutReport([FromBody] BookSignOutReportRequest request)
         {

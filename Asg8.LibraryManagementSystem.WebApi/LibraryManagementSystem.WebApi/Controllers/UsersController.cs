@@ -23,7 +23,7 @@ namespace LibraryManagementSystem.WebApi.Controllers
         }
 
         // GET: api/<UsersController>
-        [Authorize(Roles ="Library Manager")]
+        // [Authorize(Roles ="Library Manager")]
         [HttpGet]
         public async Task<IEnumerable<object>> Get()
         {
